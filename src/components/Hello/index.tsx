@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../Button';
 
 import { 
   Container, 
@@ -19,6 +20,8 @@ export function Hello(){
           <InfoText>Registre seus produtos e serviços e encontre pessoas para fazer o seu escambo :)</InfoText>
         </TitleBox>
         <Footer>
+          <Button title="Quero me cadastrar" primary onPress={() => console.log('Register')} />
+          <Button title="Já sou cadastrado" primary={false} onPress={() => console.log('Login')}/>
           <FooterInfo>Entenda como funciona</FooterInfo>
         </Footer>
     </Container>
