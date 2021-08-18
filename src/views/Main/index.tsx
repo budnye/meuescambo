@@ -1,11 +1,7 @@
 import React from 'react';
 
-import { Container, Title } from './styles';
+import { Hello } from '../../components/Hello'
 
 export function Main(){
-  return(
-    <Container>
-      <Title>Meu Escambo</Title>
-    </Container>
-  );
+  return <Hello />
 };
