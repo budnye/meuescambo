@@ -43,14 +43,11 @@ export const InfoText = styled.Text`
 
 export const Footer = styled.View`
   position: absolute;
-  bottom: ${RFPercentage(5)}px;
-  height: 100px;
+  bottom: ${RFPercentage(6)}px;
   width: 90%;
-  /* padding: ${RFValue(16)}px;; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid red;
 `;
 
 export const FooterInfo = styled.Text`
@@ -58,4 +55,5 @@ export const FooterInfo = styled.Text`
   font-size: ${RFValue(10)}px;
   text-align: center;
   text-decoration: underline;
-  margin-bottom: ${RFValue(10)}px;`;
+  margin: ${RFValue(10)}px 0px;
+  `;
