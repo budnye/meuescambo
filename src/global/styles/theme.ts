@@ -17,8 +17,12 @@ export default {
   },
 
   fonts: {
-    regular: 'Poppins_400Regular',
-    medium: 'Poppins_500Medium',
-    bold: 'Poppins_700Bold'
+    regular: 'OpenSans_400Regular',
+    medium: 'OpenSans_600SemiBold',
+    bold: 'OpenSans_700Bold'
   }
 }
+
+
+
+
