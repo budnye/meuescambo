@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 export const TitleBox = styled.View`
   position: absolute;
   top: ${RFPercentage(55)}px;
-  width: 90%;
+  width: 85%;
   padding: ${RFValue(16)}px;;
   flex-direction: column;
   align-items: center;

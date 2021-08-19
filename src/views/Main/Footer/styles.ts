@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 export const FooterBox = styled.View`
   position: absolute;
   bottom: ${RFPercentage(6)}px;
-  width: 90%;
+  width: 85%;
   flex-direction: column;
   align-items: center;
   justify-content: center;

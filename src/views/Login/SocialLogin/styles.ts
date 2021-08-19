@@ -2,7 +2,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 90%;
+  width: 85%;
 `;
 
 export const Title = styled.Text`
