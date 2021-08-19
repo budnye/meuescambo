@@ -1,7 +1,12 @@
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
+import theme from './src/global/styles/theme';
 
+// Screens
+import { Main } from './src/views/Main'
+
+import { Login } from './src/views/Login'
 
 import {
   useFonts,
@@ -11,8 +16,8 @@ import {
 } from '@expo-google-fonts/open-sans'
 
 
-import theme from './src/global/styles/theme';
-import {Main} from './src/views/Main'
+
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     OpenSans_400Regular,
@@ -25,7 +30,7 @@ export default function App() {
   }
   return  (
     <ThemeProvider theme={theme}>
-      <Main />
+      <Login />
     </ThemeProvider>
   )
   
