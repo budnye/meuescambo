@@ -9,5 +9,5 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFValue(18)}px;
   text-align: center;
-  margin-bottom: ${RFValue(16)}px;
+  margin-bottom: 32px;
 `;
