@@ -1,19 +1,18 @@
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-
-export const FooterBox = styled.View`
-  position: absolute;
-  bottom: ${RFPercentage(6)}px;
-  width: 85%;
-  flex-direction: column;
+import { RFValue } from 'react-native-responsive-fontsize'
+export const Container = styled.View`
+  width: 100%;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme }) => theme.colors.background};
+  /* border: 1px solid red; */
+  padding: 8px;
 `;
 
-export const FooterInfo = styled.Text`
+export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(10)}px;
   text-align: center;
   text-decoration: underline;
   margin: ${RFValue(10)}px 0px;
-  `;
+`;
