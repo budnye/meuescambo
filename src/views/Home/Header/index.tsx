@@ -1,11 +1,17 @@
 import React from 'react';
 
-import { Container, Title } from './styles';
+import { Container, Title, Icon, IconButton, LogoBox, ButtonsBox } from './styles';
 
 export function Header(){
   return(
     <Container>
-      <Title>Header</Title>
+      <LogoBox>
+        <Icon name="refresh"/><Title>meu escambo</Title>
+      </LogoBox>
+      <ButtonsBox>
+        <IconButton name="bell"/>
+        <IconButton name="comments"/>
+      </ButtonsBox>
     </Container>
   );
 };
