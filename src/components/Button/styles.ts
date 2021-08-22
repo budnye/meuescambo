@@ -9,7 +9,9 @@ interface ButtonProps {
 }
 
 
-export const Container = styled.TouchableOpacity<ButtonProps>`
+export const Container = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.5,
+})<ButtonProps>`
   border-radius: 25px;
   width: 100%;
   flex-direction: row;
