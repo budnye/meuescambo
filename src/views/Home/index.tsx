@@ -9,7 +9,6 @@ export function Home(){
     <Container>
       <Header />
       <FeedContent />
-      <Title>Home</Title>
     </Container>
   );
 };
