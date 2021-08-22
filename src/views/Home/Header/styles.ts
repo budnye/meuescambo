@@ -4,9 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome } from '@expo/vector-icons';
 
 export const Container = styled.View`
-  /* border: 1px solid black; */
   width: 100%;
-  position: absolute;
   top: ${getStatusBarHeight()}px;
   padding: 8px;
   flex-direction: row;
