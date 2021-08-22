@@ -13,7 +13,8 @@ export default {
     title: '#FFFFFF',
     textLight: '#f2f2f2',
     textDark: 'rgb(92, 92, 92)',
-    background: '#f2f2f2'
+    background: '#f2f2f2',
+    inactive: 'rgba(92, 92, 92, 0.4)'
   },
 
   fonts: {
