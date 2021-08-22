@@ -15,7 +15,7 @@ import {
   OpenSans_600SemiBold,
   OpenSans_700Bold,
 } from '@expo-google-fonts/open-sans'
-
+import { Lobster_400Regular } from '@expo-google-fonts/lobster';
 
 
 
@@ -24,6 +24,7 @@ export default function App() {
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
+    Lobster_400Regular,
   });
 
   if(!fontsLoaded){
