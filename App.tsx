@@ -4,8 +4,8 @@ import { ThemeProvider } from 'styled-components/native';
 import theme from './src/global/styles/theme';
 
 // Screens
-// import { Main } from './src/views/Main';
-// import { Login } from './src/views/Login';
+import { Main } from './src/views/Main';
+import { Login } from './src/views/Login';
 import { Home } from './src/views/Home';
 import { NavigationBar } from './src/views/NavigationBar';
 

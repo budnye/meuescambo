@@ -2,8 +2,9 @@ import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import { Icon } from './styles';
 import theme from '../../global/styles/theme';
+import { Home } from  '../Home';
 
-const HomeRoute = () => <Text>Home</Text>;
+const HomeRoute = () => <Home />;
 
 const SearchRoute = () => <Text>Search</Text>;
 
