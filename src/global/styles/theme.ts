@@ -20,7 +20,8 @@ export default {
   fonts: {
     regular: 'OpenSans_400Regular',
     medium: 'OpenSans_600SemiBold',
-    bold: 'OpenSans_700Bold'
+    bold: 'OpenSans_700Bold',
+    logo: 'Lobster_400Regular'
   }
 }
 
