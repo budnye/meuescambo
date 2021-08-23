@@ -4,9 +4,15 @@ export default {
 
     secondary: '#c8d8e4',
 
-    success: '#12A454',
+    success: '#009944',
 
-    warning: 'rgb(218, 195, 171)',
+    warning: '#f0541e',
+
+    danger: '#e50f0f',
+
+    info: '#63c0df',
+
+    warningLigth: 'rgb(218, 195, 171)',
 
     white: '#FFFFFF',
     black: '#212121',

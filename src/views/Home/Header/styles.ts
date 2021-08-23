@@ -10,6 +10,8 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  box-shadow: 3px 3px 3px #eee;
 `;
 
 export const LogoBox = styled.View`
