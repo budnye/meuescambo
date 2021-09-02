@@ -4,9 +4,10 @@ import { ThemeProvider } from 'styled-components/native';
 import theme from './src/global/styles/theme';
 
 // Screens
-import { Main } from './src/views/Main'
-
-import { Login } from './src/views/Login'
+import { Main } from './src/views/Main';
+import { Login } from './src/views/Login';
+import { Home } from './src/views/Home';
+import { NavigationBar } from './src/views/NavigationBar';
 
 import {
   useFonts,
@@ -14,7 +15,7 @@ import {
   OpenSans_600SemiBold,
   OpenSans_700Bold,
 } from '@expo-google-fonts/open-sans'
-
+import { Lobster_400Regular } from '@expo-google-fonts/lobster';
 
 
 
@@ -23,6 +24,7 @@ export default function App() {
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
+    Lobster_400Regular,
   });
 
   if(!fontsLoaded){
@@ -30,7 +32,7 @@ export default function App() {
   }
   return  (
     <ThemeProvider theme={theme}>
-      <Login />
+      <NavigationBar />
     </ThemeProvider>
   )
   

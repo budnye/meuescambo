@@ -1,13 +1,16 @@
 import React from 'react';
 import { TextInputProps } from 'react-native';
 
-import { Container, Box } from './styles';
+import { Container, Box, Icon } from './styles';
+interface InputProps extends TextInputProps {
+  icon?: string;
+  iconColor?: string;
+}
 
-type Props = TextInputProps;
-
-export function Input({...rest} : Props){
+export function Input({icon, iconColor,...rest} : InputProps){
   return (
     <Box>
+      {icon && <Icon name={icon} color={iconColor}/>}
       <Container {...rest} />
     </Box>
   );
