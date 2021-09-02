@@ -3,12 +3,14 @@ import { BottomNavigation, Text } from 'react-native-paper';
 import { Icon } from './styles';
 import theme from '../../global/styles/theme';
 import { Home } from  '../Home';
+import { Login } from  '../Login';
+import { Main } from  '../Main';
 
 const HomeRoute = () => <Home />;
 
-const SearchRoute = () => <Text>Search</Text>;
+const SearchRoute = () => <Login />;
 
-const ProductsRoute = () => <Text>Meu escambo</Text>;
+const ProductsRoute = () => <Main />;
 
 const TransactionRoute = () => <Text>Negociações</Text>;
 

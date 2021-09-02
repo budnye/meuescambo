@@ -2,16 +2,16 @@ import React from 'react';
 import { Button } from '../../components/Button';
 import { Hello } from './Hello';
 import { Footer } from './Footer';
+import { Logo } from './Logo';
 
 import { 
   Container, 
-  TopBox, 
 } from './styles';
 
 export function Main(){
   return(
     <Container>
-      <TopBox />
+      <Logo />
       <Hello />
       <Footer />
     </Container>

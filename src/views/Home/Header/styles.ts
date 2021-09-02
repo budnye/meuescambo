@@ -5,13 +5,12 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export const Container = styled.View`
   width: 100%;
-  top: ${getStatusBarHeight()}px;
-  padding: 8px;
+  padding-top: ${getStatusBarHeight() + 16}px;
+  padding-bottom: 8px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  box-shadow: 3px 3px 3px #eee;
+  background-color: ${({ theme }) => theme.colors.white};;
 `;
 
 export const LogoBox = styled.View`

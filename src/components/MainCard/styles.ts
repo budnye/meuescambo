@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.9;
+
 export const Container = styled.View`
   /* border: 1px solid black; */
   flex-direction: column;
