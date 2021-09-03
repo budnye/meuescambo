@@ -1,7 +1,7 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Form = styled.View`
   /* border: 1px solid red; */
   width: 85%;
 `;
@@ -21,13 +21,24 @@ export const Label = styled.Text`
 
 export const InputBox = styled.View`
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
   width: 100%;
-  /* border: 1px solid red; */
 `;
 
 export const Footer = styled.View`
   width: 100%;
   margin-top: 16px;
+`;
+
+export const ErrorBox = styled.View`
+  margin-top: 8px;
+  align-items: center;
+  height: 16px;
+`;
+
+export const Error = styled.Text`
+  font-size: ${RFValue(10)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.warning};
+  /* margin: ${RFValue(10)}px 0px; */
 `;
