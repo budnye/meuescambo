@@ -8,12 +8,12 @@ import {
   Container, 
 } from './styles';
 
-export function Main(){
+export function Main({ navigation }){
   return(
     <Container>
       <Logo />
       <Hello />
-      <Footer />
+      <Footer navigation={navigation}/>
     </Container>
   );
 };
