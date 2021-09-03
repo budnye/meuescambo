@@ -45,7 +45,7 @@ export function LoginForm(){
       }
 
       const { data: { login: {token}}} = await login({variables: data})
-
+      
     } catch (e) {
       console.log(error);
     }

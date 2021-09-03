@@ -13,7 +13,6 @@ export function Input({icon, iconColor, error,...rest} : InputProps){
   return (
     <Box>
     <InputBox>
-      {console.log(error)}
       {icon && <Icon name={icon} color={iconColor}/>}
       <Container {...rest} />
     </InputBox>
