@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Container, Title } from './styles';
+import { Container } from './styles';
 import { Input } from '../Input'
-import { Texto } from '../Texto';
 import theme from '../../global/styles/theme'
 
 export function Searchbar(){
@@ -13,7 +12,6 @@ export function Searchbar(){
         iconColor={theme.colors.secondary}
         placeholder="Pesquise aqui"
         />
-        <Texto />
     </Container>
   );
 };

@@ -6,8 +6,9 @@ export default {
 
     success: '#009944',
 
-    warning: '#f0541e',
+    // warning: '#f0541e',
 
+    warning: 'red',
     danger: '#e50f0f',
 
     info: '#63c0df',
