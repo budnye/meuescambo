@@ -4,7 +4,6 @@ import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 
-
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.9;
 
@@ -22,10 +21,7 @@ export const Container = styled.View`
   box-shadow: 3px 3px 3px #eee;
 `;
 
-export const Title = styled.Text`
-  
-`;
-
+export const Title = styled.Text``;
 
 export const Image = styled.Image`
   width: 100%;
@@ -37,7 +33,6 @@ export const ImgBox = styled.View`
   border-radius: 10px;
   width: 100%;
   height: ${cardWidth}px;
-
 `;
 
 export const Footer = styled.View`
@@ -47,7 +42,6 @@ export const Footer = styled.View`
   width: 100%;
   margin: 16px 0px;
 `;
-
 
 export const InfoBox = styled(LinearGradient)`
   /* border: 1px solid red; */

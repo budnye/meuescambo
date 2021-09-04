@@ -8,19 +8,17 @@ import { LoginForm } from './LoginForm';
 import { LoginFooter } from './LoginFooter';
 import { KeyboardAvoidingView } from 'react-native';
 
-
-export function Login(){
-  return(
+export function Login() {
+  return (
     <Scroll>
       <KeyboardAvoidingView behavior="position">
         <Container>
-        <SocialLogin />
-        <LoginDivider />
-        <LoginForm />
+          <SocialLogin />
+          <LoginDivider />
+          <LoginForm />
         </Container>
       </KeyboardAvoidingView>
       <LoginFooter />
-    </Scroll >
-
+    </Scroll>
   );
-};
+}

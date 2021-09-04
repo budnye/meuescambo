@@ -13,10 +13,21 @@ interface Props extends TouchableOpacityProps {
   onpress?: () => void;
 }
 
-export function Button({title, color, textColor, secondary, icon, iconColor, ...rest }: Props) {
-  return(
+export function Button({
+  title,
+  color,
+  textColor,
+  secondary,
+  icon,
+  iconColor,
+  ...rest
+}: Props) {
+  return (
     <Container color={color} {...rest} secondary={secondary}>
-      {icon && <Icon name={icon} color={iconColor|| '#fff'}/>}<Title  textColor={textColor} secondary={secondary} >{title}</Title>
+      {icon && <Icon name={icon} color={iconColor || '#fff'} />}
+      <Title textColor={textColor} secondary={secondary}>
+        {title}
+      </Title>
     </Container>
   );
-};
+}

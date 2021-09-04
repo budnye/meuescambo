@@ -7,10 +7,10 @@ export interface ButtonProps {
   size?: number;
   type?: 'small' | 'large';
 }
-export function CardButton({ name, color, size, type }: ButtonProps){
-  return(
+export function CardButton({ name, color, size, type }: ButtonProps) {
+  return (
     <Container type={type}>
       <Icon name={name} size={size} color={color} />
     </Container>
   );
-};
+}

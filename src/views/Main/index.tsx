@@ -4,16 +4,14 @@ import { Hello } from './Hello';
 import { Footer } from './Footer';
 import { Logo } from './Logo';
 
-import { 
-  Container, 
-} from './styles';
+import { Container } from './styles';
 
-export function Main({ navigation }){
-  return(
+export function Main({ navigation }) {
+  return (
     <Container>
       <Logo />
       <Hello />
-      <Footer navigation={navigation}/>
+      <Footer navigation={navigation} />
     </Container>
   );
-};
+}

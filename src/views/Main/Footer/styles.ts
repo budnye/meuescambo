@@ -16,4 +16,4 @@ export const FooterInfo = styled.Text`
   text-align: center;
   text-decoration: underline;
   margin: ${RFValue(10)}px 0px;
-  `;
+`;

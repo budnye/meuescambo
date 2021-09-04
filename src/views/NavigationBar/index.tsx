@@ -1,21 +1,23 @@
 import * as React from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
-import { Icon } from './styles';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+import { Icon, LogoBox } from './styles';
 import theme from '../../global/styles/theme';
-import { Home } from  '../Home';
-import { Login } from  '../Login';
-import { Main } from  '../Main';
+import { Home } from '../Home';
+import { Login } from '../Login';
+import { Main } from '../Main';
 
-const HomeRoute = () => <Home />;
+// const HomeRoute = () => <Home />;
 
-const SearchRoute = () => <Login />;
+// const SearchRoute = () => <Login />;
 
-const ProductsRoute = () => <Main />;
+// const ProductsRoute = () => <Main />;
 
-const TransactionRoute = () => <Text>Negociações</Text>;
+// const TransactionRoute = () => <Text>Negociações</Text>;
 
-const ProfileRoutes = () => <Text>Perfile</Text>;
+// const ProfileRoutes = () => <Text>Perfile</Text>;
 
+const Tab = createMaterialBottomTabNavigator();
 
 export function NavigationBar() {
   const [index, setIndex] = React.useState(0);
@@ -27,24 +29,53 @@ export function NavigationBar() {
     { key: 'profile', title: 'Perfil', icon: 'account' },
   ]);
 
-  const renderScene = BottomNavigation.SceneMap({
-    home: HomeRoute,
-    search: SearchRoute,
-    products: ProductsRoute,
-    transactions: TransactionRoute,
-    profile: ProfileRoutes,
-  });
-
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      shifting={false}
-      barStyle={{ backgroundColor: '#FFFFFF' }}
+    <Tab.Navigator
+      initialRouteName="home"
       activeColor={theme.colors.primary}
-      inactiveColor={theme.colors.inactive}
-
-    />
+      barStyle={{ backgroundColor: theme.colors.background }}
+      shifting={false}
+    >
+      <Tab.Screen
+        name="home"
+        component={Home}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => <Icon name="home" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="search"
+        component={Home}
+        options={{
+          tabBarLabel: 'Busca',
+          tabBarIcon: ({ color }) => <Icon name="search" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="products"
+        component={Home}
+        options={{
+          tabBarLabel: 'Escambo',
+          tabBarIcon: ({ color }) => <Icon name="refresh" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="transactions"
+        component={Login}
+        options={{
+          tabBarLabel: 'Negociações',
+          tabBarIcon: ({ color }) => <Icon name="suitcase" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="profile"
+        component={Login}
+        options={{
+          tabBarLabel: 'Perfil',
+          tabBarIcon: ({ color }) => <Icon name="user" color={color} />,
+        }}
+      />
+    </Tab.Navigator>
   );
-};
+}

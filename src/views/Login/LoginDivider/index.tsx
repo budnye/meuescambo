@@ -5,12 +5,12 @@ interface Props {
   title?: string;
 }
 
-export function LoginDivider({ title = "ou" }: Props) {
-  return(
+export function LoginDivider({ title = 'ou' }: Props) {
+  return (
     <Container>
       <Line />
-       <Title>{title}</Title>
+      <Title>{title}</Title>
       <Line />
     </Container>
   );
-};
+}

@@ -10,8 +10,8 @@ interface IconProps {
 export const Container = styled(TextInput)`
   width: 100%;
   padding: 8px;
-  color: ${({theme}) => theme.colors.textDark};
-  font-family: ${({theme}) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.textDark};
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
 `;
 
@@ -20,7 +20,7 @@ export const Box = styled.View`
   justify-content: center;
   margin-bottom: 16px;
   /* align-items: center; */
-  /* border-color: ${({theme}) => theme.colors.secondary};
+  /* border-color: ${({ theme }) => theme.colors.secondary};
   border-bottom-width: 1px;
   margin-bottom: 16px; */
   /* width: 100%; */
@@ -29,17 +29,16 @@ export const Box = styled.View`
 export const InputBox = styled.View`
   flex-direction: row;
   align-items: center;
-  border-color: ${({theme}) => theme.colors.secondary};
+  border-color: ${({ theme }) => theme.colors.secondary};
   border-bottom-width: 1px;
   width: 100%;
 `;
 
-
 export const Icon = styled(FontAwesome)<IconProps>`
-  font-size: ${ RFValue(18)}px;
+  font-size: ${RFValue(18)}px;
   margin-right: 8px;
   margin-left: 8px;
-  color: ${({ theme, color }) => color ? color : theme.colors.primary};
+  color: ${({ theme, color }) => (color ? color : theme.colors.primary)};
 `;
 
 export const ErrorBox = styled.View`

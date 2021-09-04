@@ -9,16 +9,14 @@ interface InputProps extends TextInputProps {
   error?: string;
 }
 
-export function Input({icon, iconColor, error,...rest} : InputProps){
+export function Input({ icon, iconColor, error, ...rest }: InputProps) {
   return (
     <Box>
-    <InputBox>
-      {icon && <Icon name={icon} color={iconColor}/>}
-      <Container {...rest} />
-    </InputBox>
-    <ErrorBox>
-    {error && <Error>{error}</Error>}
-</ErrorBox>
+      <InputBox>
+        {icon && <Icon name={icon} color={iconColor} />}
+        <Container {...rest} />
+      </InputBox>
+      <ErrorBox>{error && <Error>{error}</Error>}</ErrorBox>
     </Box>
   );
-};
+}

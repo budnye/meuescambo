@@ -8,7 +8,6 @@ interface ButtonProps {
   secondary?: boolean;
 }
 
-
 export const Container = styled.TouchableOpacity.attrs({
   activeOpacity: 0.5,
 })<ButtonProps>`
@@ -19,11 +18,21 @@ export const Container = styled.TouchableOpacity.attrs({
   justify-content: center;
   margin: 6px 0px;
   padding: ${RFValue(12)}px;
-  background: ${({ color, theme, secondary }) => (!color &&!secondary ? theme.colors.primary : !color ? theme.colors.secondary : color)};
+  background: ${({ color, theme, secondary }) =>
+    !color && !secondary
+      ? theme.colors.primary
+      : !color
+      ? theme.colors.secondary
+      : color};
 `;
 
 export const Title = styled.Text<ButtonProps>`
-  color: ${({ secondary, theme, textColor })  => (!textColor && !secondary ? theme.colors.textLight : !textColor ? theme.colors.primary : textColor)};
+  color: ${({ secondary, theme, textColor }) =>
+    !textColor && !secondary
+      ? theme.colors.textLight
+      : !textColor
+      ? theme.colors.primary
+      : textColor};
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
 `;

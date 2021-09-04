@@ -9,6 +9,4 @@ export const Container = styled.View`
   align-self: center;
 `;
 
-export const Title = styled.Text`
-
-`;
+export const Title = styled.Text``;

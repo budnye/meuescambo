@@ -4,13 +4,13 @@ import { ListContainer, Title } from './styles';
 import { MainCard } from '../../../components/MainCard';
 import { Searchbar } from '../../../components/SearchBar';
 
-
-export function FeedContent(){
+export function FeedContent() {
   const data = [
     {
       id: 0,
       name: 'Serviço de Carpintaria',
-      image_url: 'https://www.pontorh.com.br/y/2725/carpinteiro-e1464631823154-720.jpg',
+      image_url:
+        'https://www.pontorh.com.br/y/2725/carpinteiro-e1464631823154-720.jpg',
     },
     {
       id: 1,
@@ -30,7 +30,8 @@ export function FeedContent(){
     {
       id: 4,
       name: 'Serviço de Carpintaria por hora',
-      image_url: 'https://www.pontorh.com.br/y/2725/carpinteiro-e1464631823154-720.jpg',
+      image_url:
+        'https://www.pontorh.com.br/y/2725/carpinteiro-e1464631823154-720.jpg',
     },
     {
       id: 5,
@@ -40,15 +41,18 @@ export function FeedContent(){
     {
       id: 6,
       name: 'Diarista sem grilo!',
-      image_url: 'https://s2.glbimg.com/CrTrmLu7obeP3NoLgPatN4U2fMk=/620x480/e.glbimg.com/og/ed/f/original/2018/05/21/faxina.jpg',
+      image_url:
+        'https://s2.glbimg.com/CrTrmLu7obeP3NoLgPatN4U2fMk=/620x480/e.glbimg.com/og/ed/f/original/2018/05/21/faxina.jpg',
     },
-  ]
-  return(
+  ];
+  return (
     <ListContainer
-          data={data}
-          keyExtractor={item => item.id.toString()}
-          ListHeaderComponent={() => <Searchbar />}
-          renderItem={({ item }) => <MainCard title={item.name} image={item.image_url}/>} 
+      data={data}
+      keyExtractor={(item) => item.id.toString()}
+      ListHeaderComponent={() => <Searchbar />}
+      renderItem={({ item }) => (
+        <MainCard title={item.name} image={item.image_url} />
+      )}
     />
   );
-};
+}
