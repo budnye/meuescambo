@@ -5,7 +5,7 @@ export const TitleBox = styled.View`
   position: absolute;
   top: ${RFPercentage(55)}px;
   width: 85%;
-  padding: ${RFValue(16)}px;;
+  padding: ${RFValue(16)}px;
   flex-direction: column;
   align-items: center;
   justify-content: center;

@@ -20,7 +20,7 @@ import {
   OpenSans_400Regular,
   OpenSans_600SemiBold,
   OpenSans_700Bold,
-} from '@expo-google-fonts/open-sans'
+} from '@expo-google-fonts/open-sans';
 import { Lobster_400Regular } from '@expo-google-fonts/lobster';
 import { Router } from './src/Router';
 
@@ -28,23 +28,22 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql',
 });
 
-
 const authLink = setContext(async (_, { headers }) => {
-  const token = await AsyncStorage.getItem('token')
-  console.log('token ', token);
-  
+  const token = await AsyncStorage.getItem('token');
+  // console.log('token ', token);
+
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    }
-  }
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache,
-})
+});
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -56,19 +55,14 @@ export default function App() {
 
   const [singedIn, setSingedIn] = useState(false);
 
-
-
-  
-  if(!fontsLoaded){
-    return <AppLoading />
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
-  return  (
+  return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
         <Router />
       </ApolloProvider>
     </ThemeProvider>
-  )
-  
+  );
 }
-

@@ -8,9 +8,9 @@ export default new InMemoryCache({
         auth: {
           read() {
             return auth();
-          }
-        }
-      }
-    }
-  }
-})
+          },
+        },
+      },
+    },
+  },
+});

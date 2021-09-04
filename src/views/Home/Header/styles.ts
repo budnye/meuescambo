@@ -10,7 +10,7 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.white};;
+  background-color: ${({ theme }) => theme.colors.light}; ;
 `;
 
 export const LogoBox = styled.View`
@@ -19,7 +19,6 @@ export const LogoBox = styled.View`
   justify-content: flex-start;
   align-items: center;
 `;
-
 
 export const ButtonsBox = styled.View`
   flex-direction: row;
@@ -32,7 +31,6 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.logo};
   font-size: ${RFValue(20)}px;
 `;
-
 
 export const Icon = styled(FontAwesome)`
   font-size: ${RFValue(18)}px;

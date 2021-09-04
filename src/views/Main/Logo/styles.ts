@@ -2,9 +2,7 @@ import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome } from '@expo/vector-icons';
 
-export const Container = styled.View`
-
-`;
+export const Container = styled.View``;
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.logo};
@@ -22,7 +20,6 @@ export const TopBox = styled.View`
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
-
 
 export const BrandIcon = styled(FontAwesome)`
   font-size: ${RFValue(90)}px;
