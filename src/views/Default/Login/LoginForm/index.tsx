@@ -90,6 +90,7 @@ export function LoginForm() {
           autoCorrect={false}
           autoCompleteType="password"
           error={errors.password && errors.password.message}
+          onSubmitEditing={handleSubmit(handleLogin)}
         />
       </InputBox>
       <ErrorBox>
