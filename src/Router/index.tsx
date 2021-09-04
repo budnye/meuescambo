@@ -44,7 +44,7 @@ export function Router() {
               <Stack.Screen
                 name="Register"
                 component={Register}
-                options={{ headerShown: false }}
+                options={{ headerShown: true }}
               />
               <Stack.Screen
                 name="Forgot"

@@ -8,7 +8,7 @@ export function Footer({ navigation }: any) {
     <FooterBox>
       <Button
         title="Quero me cadastrar"
-        onPress={() => console.log('Register')}
+        onPress={() => navigation.navigate('Register')}
       />
       <Button
         title="Já sou cadastrado"
