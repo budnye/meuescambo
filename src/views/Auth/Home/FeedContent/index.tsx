@@ -3,6 +3,7 @@ import React from 'react';
 import { ListContainer, Title } from './styles';
 import { MainCard } from '../../../../components/MainCard';
 import { Searchbar } from '../../../../components/SearchBar';
+import { Swipe } from '../../../../components/Swipe';
 
 export function FeedContent() {
   const data = [
