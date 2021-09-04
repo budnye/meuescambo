@@ -1,13 +1,12 @@
-import { useQuery, gql } from '@apollo/client'
+import { gql } from '@apollo/client'
 
-export const TEST_QUERY = gql`
+export const GET_USER = gql`
   query {
-    getUsers{
-      id
-      name
-      email
-    }
+  getUser{
+    name
+    email
   }
+}
 `
 
 export const LOGIN = gql`
