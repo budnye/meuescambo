@@ -20,7 +20,8 @@ export default {
     title: '#FFFFFF',
     textLight: '#f2f2f2',
     textDark: 'rgb(92, 92, 92)',
-    background: '#f2f2f2',
+    light: '#f2f2f2',
+    background: '#FFFFFF',
     inactive: 'rgba(92, 92, 92, 0.4)',
   },
 

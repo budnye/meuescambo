@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import { Icon, LogoBox } from './styles';
+import { Icon } from './styles';
 import theme from '../../global/styles/theme';
 import { Home } from '../Home';
 import { Login } from '../Login';
-import { Main } from '../Main';
 
 // const HomeRoute = () => <Home />;
 
@@ -33,7 +32,7 @@ export function NavigationBar() {
     <Tab.Navigator
       initialRouteName="home"
       activeColor={theme.colors.primary}
-      barStyle={{ backgroundColor: theme.colors.background }}
+      barStyle={{ backgroundColor: theme.colors.light }}
       shifting={false}
     >
       <Tab.Screen

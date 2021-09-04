@@ -28,7 +28,7 @@ export function Router() {
       {console.log('auth Router ', data.auth)}
       <Stack.Navigator>
         <>
-          {!data.auth ? (
+          {data.auth ? (
             <>
               <Stack.Screen
                 name="Main"
