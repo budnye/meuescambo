@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { ListContainer, Title } from './styles';
-import { MainCard } from '../../../components/MainCard';
-import { Searchbar } from '../../../components/SearchBar';
+import { MainCard } from '../../../../components/MainCard';
+import { Searchbar } from '../../../../components/SearchBar';
 
 export function FeedContent() {
   const data = [
