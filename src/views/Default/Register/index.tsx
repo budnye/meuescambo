@@ -1,11 +1,22 @@
 import React from 'react';
+import { RegisterHeader } from './RegisterHeader';
+import { RegisterForm } from './RegisterForm';
+import { 
+  Container,
+  Scroll
+} from './styles';
+import { KeyboardAvoidingView } from 'react-native';
 
-import { Container, Title } from './styles';
-
-export function Register(){
+export function Register({ navigation } : any){
   return(
-    <Container>
-      <Title>Register</Title>
-    </Container>
+    <Scroll>
+      <KeyboardAvoidingView behavior="position">
+      <Container>
+      <RegisterHeader />
+      <RegisterForm navigation={navigation}/>
+      </Container>
+      </KeyboardAvoidingView>
+      {/* <RegisterFooter /> */}
+    </Scroll>
   );
 };

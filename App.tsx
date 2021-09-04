@@ -22,7 +22,7 @@ import {
   OpenSans_700Bold,
 } from '@expo-google-fonts/open-sans';
 import { Lobster_400Regular } from '@expo-google-fonts/lobster';
-import { Router } from './src/Router';
+import { Router } from './src/router';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql',

@@ -29,7 +29,7 @@ export function Router() {
       {console.log('auth Router ', data.auth)}
       <Stack.Navigator>
         <>
-          {data.auth ? (
+          {!data.auth ? (
             <>
               <Stack.Screen
                 name="Main"
@@ -44,7 +44,7 @@ export function Router() {
               <Stack.Screen
                 name="Register"
                 component={Register}
-                options={{ headerShown: true }}
+                options={{ headerShown: false }}
               />
               <Stack.Screen
                 name="Forgot"
