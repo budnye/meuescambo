@@ -5,34 +5,29 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
+// const height = Dimensions.get('window').height;
 const cardWidth = width * 0.9;
 
 export const Container = styled.View`
-  /* border: 1px solid black; */
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border-radius: 10px;
   width: ${cardWidth}px;
-  height: ${cardWidth * 1.25}px;
-  margin: 8px;
+  height: ${RFPercentage(80)}px;
   align-self: center;
-  background-color: white;
-  box-shadow: 3px 3px 3px #eee;
 `;
 
 export const Title = styled.Text``;
 
 export const Image = styled.Image`
   width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  height: ${RFPercentage(80) * 0.85}px;
+  border-radius: 15px;
 `;
 
 export const ImgBox = styled.View`
   border-radius: 10px;
   width: 100%;
-  height: ${cardWidth}px;
 `;
 
 export const Footer = styled.View`
@@ -44,14 +39,14 @@ export const Footer = styled.View`
 `;
 
 export const InfoBox = styled(LinearGradient)`
-  /* border: 1px solid red; */
   padding: 16px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
+  border-radius: 15px;
 `;
 
 export const ImageTitle = styled.Text`

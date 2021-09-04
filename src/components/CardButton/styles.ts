@@ -2,12 +2,15 @@ import styled from 'styled-components/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ButtonProps } from '.';
+import { TouchableOpacity } from 'react-native';
 
 interface ContainerProps {
   type?: 'small' | 'large';
 }
 
-export const Container = styled.View<ContainerProps>`
+export const Container = styled(TouchableOpacity).attrs({
+  activeOpacity: 0.3,
+})<ContainerProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;

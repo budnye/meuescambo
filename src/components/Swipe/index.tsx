@@ -1,15 +1,12 @@
-import React from 'react';
-// Apollo Client
-import { useQuery } from '@apollo/client';
-import { GET_USER } from '../../../graphql/requests';
-import { Container, Title } from './styles';
-import { Header } from './Header';
-import { FeedContent } from './FeedContent';
-import { Swipe } from '../../../components/Swipe';
+import React, { useState } from 'react';
 
-export function Home() {
-  const { data, loading, error } = useQuery(GET_USER);
-  const data2 = [
+import { Container, Title } from './styles';
+import  Swipeable  from 'react-native-gesture-handler/Swipeable';
+import { MainCard } from '../MainCard';
+export function Swipe({   }: any){
+  
+  const [index, setindex] = useState(0)
+  const items = [
     {
       id: 0,
       name: 'Serviço de Carpintaria',
@@ -49,12 +46,24 @@ export function Home() {
         'https://s2.glbimg.com/CrTrmLu7obeP3NoLgPatN4U2fMk=/620x480/e.glbimg.com/og/ed/f/original/2018/05/21/faxina.jpg',
     },
   ];
-  return (
+  return(
     <Container>
-      {console.log(data)}
-      <Header />
-      {/* <FeedContent /> */}
-      <Swipe />
+      {items && items.map((item: any, idx: number) => 
+      idx === index  &&
+      (
+        <Swipeable
+        key={idx}
+        friction={2}
+        leftThreshold={30}
+        rightThreshold={30}
+        renderLeftActions={() => <MainCard title={items[index + 1].name} image={items[index + 1].image_url} />}
+        renderRightActions={() => <MainCard title={items[index + 1].name} image={items[index + 1].image_url} />}
+        onSwipeableLeftOpen={() => setindex(index + 1)}
+        onSwipeableRightOpen={() => setindex(index + 1)}
+      >
+        <MainCard title={items[index].name} image={items[index].image_url} />
+      </Swipeable>  
+      ))}
     </Container>
   );
-}
+};
