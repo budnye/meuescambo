@@ -10,7 +10,8 @@ import cache from './src/graphql/cache';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './src/global/styles/theme';
 
-
+// AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { NavigationBar } from './src/views/NavigationBar';
 
@@ -27,10 +28,11 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql',
 });
 
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = 'sda'
-  // return the headers to the context so httpLink can read them
+
+const authLink = setContext(async (_, { headers }) => {
+  const token = await AsyncStorage.getItem('token')
+  console.log('token ', token);
+  
   return {
     headers: {
       ...headers,

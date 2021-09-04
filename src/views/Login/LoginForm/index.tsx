@@ -9,7 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../../graphql/requests';
-
+import { auth } from '../../../graphql/reactivities/authVariables';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface FormData{
   email: string;
   password: string;
@@ -46,6 +47,9 @@ export function LoginForm(){
 
       const { data: { login: {token}}} = await login({variables: data})
       
+      auth(true)
+      AsyncStorage.setItem('token', token)
+      AsyncStorage.setItem('auth', 'true')
     } catch (e) {
       console.log(error);
     }
@@ -63,6 +67,7 @@ export function LoginForm(){
           maxLength={50}
           autoCorrect={false}
           autoCompleteType="email"
+          autoCapitalize="none"
           keyboardType="email-address"
           error={errors.email && errors.email.message}
         />
