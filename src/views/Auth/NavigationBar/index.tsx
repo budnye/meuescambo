@@ -2,19 +2,13 @@ import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import { Icon } from './styles';
-import theme from '../../global/styles/theme';
+import theme from '../../../global/styles/theme';
 import { Home } from '../Home';
-import { Login } from '../Login';
+import { Search } from '../Search';
+import { Trade } from '../Trade';
+import { Transactions } from '../Transactions';
+import { Profile } from '../Profile';
 
-// const HomeRoute = () => <Home />;
-
-// const SearchRoute = () => <Login />;
-
-// const ProductsRoute = () => <Main />;
-
-// const TransactionRoute = () => <Text>Negociações</Text>;
-
-// const ProfileRoutes = () => <Text>Perfile</Text>;
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -45,7 +39,7 @@ export function NavigationBar() {
       />
       <Tab.Screen
         name="search"
-        component={Home}
+        component={Search}
         options={{
           tabBarLabel: 'Busca',
           tabBarIcon: ({ color }) => <Icon name="search" color={color} />,
@@ -53,7 +47,7 @@ export function NavigationBar() {
       />
       <Tab.Screen
         name="products"
-        component={Home}
+        component={Trade}
         options={{
           tabBarLabel: 'Escambo',
           tabBarIcon: ({ color }) => <Icon name="refresh" color={color} />,
@@ -61,7 +55,7 @@ export function NavigationBar() {
       />
       <Tab.Screen
         name="transactions"
-        component={Login}
+        component={Transactions}
         options={{
           tabBarLabel: 'Negociações',
           tabBarIcon: ({ color }) => <Icon name="suitcase" color={color} />,
@@ -69,7 +63,7 @@ export function NavigationBar() {
       />
       <Tab.Screen
         name="profile"
-        component={Login}
+        component={Profile}
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ color }) => <Icon name="user" color={color} />,

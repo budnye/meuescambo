@@ -9,10 +9,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Screens
-import { Main } from '../views/Main';
-import { Login } from '../views/Login';
-import { Home } from '../views/Home';
-import { NavigationBar } from '../views/NavigationBar';
+import { Main } from '../views/Default/Main';
+import { Login } from '../views/Default/Login';
+import { Register } from '../views/Default/Register';
+import { Forgot } from '../views/Default/Forgot';
+import { NavigationBar } from '../views/Auth/NavigationBar';
 import { GET_AUTH } from '../graphql/reactivities/authVariables';
 
 export function Router() {
@@ -28,7 +29,7 @@ export function Router() {
       {console.log('auth Router ', data.auth)}
       <Stack.Navigator>
         <>
-          {data.auth ? (
+          {!data.auth ? (
             <>
               <Stack.Screen
                 name="Main"
@@ -38,6 +39,16 @@ export function Router() {
               <Stack.Screen
                 name="Login"
                 component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Forgot"
+                component={Forgot}
                 options={{ headerShown: false }}
               />
             </>

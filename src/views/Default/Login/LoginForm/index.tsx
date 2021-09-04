@@ -1,8 +1,8 @@
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
-import { Button } from '../../../components/Button';
+import { Button } from '../../../../components/Button';
 
-import { InputForm } from '../../../components/InputForm';
+import { InputForm } from '../../../../components/InputForm';
 import {
   Form,
   Title,
@@ -16,8 +16,8 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../../../graphql/requests';
-import { auth } from '../../../graphql/reactivities/authVariables';
+import { LOGIN } from '../../../../graphql/requests';
+import { auth } from '../../../../graphql/reactivities/authVariables';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 interface FormData {
   email: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FooterBox, FooterInfo } from './styles';
 
-import { Button } from '../../../components/Button';
+import { Button } from '../../../../components/Button';
 
 export function Footer({ navigation }: any) {
   return (
