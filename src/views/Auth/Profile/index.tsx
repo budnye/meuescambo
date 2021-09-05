@@ -1,13 +1,24 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Container, Title } from './styles';
+// Apollo Client
+import { useQuery } from '@apollo/client';
+import { GET_USER } from '../../../graphql/requests';
+// Components
 import { ProfileHeader } from './ProfileHeader';
+import { ProfileForm } from './ProfileForm';
+import { ScreenLoader } from '../../../components/ScreenLoader';
+import { Container, Scroll } from './styles';
 
 export function Profile(){
-  return(
+  const { data, loading } = useQuery(GET_USER);
+  
+  if (loading) return <ScreenLoader />;
+
+  return(  
+    <Scroll>
     <Container>
-      <StatusBar style="light" />
-      <ProfileHeader />
+      <ProfileHeader user={data.getUser}/>
+      <ProfileForm />
     </Container>
+    </Scroll>
   );
 };
