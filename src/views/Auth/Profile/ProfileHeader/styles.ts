@@ -1,11 +1,10 @@
 import styled from 'styled-components/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+
 export const Container = styled.View`
-  /* flex: 1; */
-  /* border: 1px solid red; */
   width: 100%;
-  height: auto;
+  height: ${RFPercentage(36)}px;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.background};
 `;
