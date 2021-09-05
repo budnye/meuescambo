@@ -6,7 +6,7 @@ import { Container, Title } from './styles';
 import { Header } from './Header';
 import { FeedContent } from './FeedContent';
 import { Swipe } from '../../../components/Swipe';
-
+import { StatusBar } from 'expo-status-bar';
 export function Home() {
   const { data, loading, error } = useQuery(GET_USER);
   const data2 = [
@@ -51,7 +51,7 @@ export function Home() {
   ];
   return (
     <Container>
-      {console.log(data)}
+      <StatusBar style="dark" />
       <Header />
       {/* <FeedContent /> */}
       <Swipe />

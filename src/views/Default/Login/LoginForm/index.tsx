@@ -30,7 +30,7 @@ const schema = Yup.object().shape({
 });
 
 export function LoginForm() {
-  const [login, { data, loading, error }] = useMutation(LOGIN);
+  const [login, { loading, error }] = useMutation(LOGIN);
 
   const {
     control,
@@ -89,6 +89,7 @@ export function LoginForm() {
           name="password"
           autoCorrect={false}
           autoCompleteType="password"
+          returnKeyType="go"
           error={errors.password && errors.password.message}
           onSubmitEditing={handleSubmit(handleLogin)}
         />

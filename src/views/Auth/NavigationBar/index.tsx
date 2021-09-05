@@ -8,7 +8,7 @@ import { Search } from '../Search';
 import { Trade } from '../Trade';
 import { Transactions } from '../Transactions';
 import { Profile } from '../Profile';
-
+import { StatusBar } from 'expo-status-bar';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -23,11 +23,13 @@ export function NavigationBar() {
   ]);
 
   return (
+    <>
+    <StatusBar style="dark" />
     <Tab.Navigator
-      initialRouteName="home"
-      activeColor={theme.colors.primary}
-      barStyle={{ backgroundColor: theme.colors.light }}
-      shifting={false}
+    initialRouteName="home"
+    activeColor={theme.colors.primary}
+    barStyle={{ backgroundColor: theme.colors.light }}
+    shifting={false}
     >
       <Tab.Screen
         name="home"
@@ -70,5 +72,6 @@ export function NavigationBar() {
         }}
       />
     </Tab.Navigator>
+    </>
   );
 }

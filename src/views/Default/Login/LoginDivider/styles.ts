@@ -12,6 +12,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(14)}px;
   text-align: center;
   margin-bottom: ${RFValue(3)}px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const Line = styled.View`

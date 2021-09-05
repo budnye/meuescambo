@@ -19,11 +19,6 @@ export const Box = styled.View`
   flex-direction: column;
   justify-content: center;
   margin-bottom: 16px;
-  /* align-items: center; */
-  /* border-color: ${({ theme }) => theme.colors.secondary};
-  border-bottom-width: 1px;
-  margin-bottom: 16px; */
-  /* width: 100%; */
 `;
 
 export const InputBox = styled.View`
@@ -43,7 +38,6 @@ export const Icon = styled(FontAwesome)<IconProps>`
 
 export const ErrorBox = styled.View`
   margin-top: 8px;
-  /* border: 1px solid red */
   height: 16px;
 `;
 
@@ -51,5 +45,4 @@ export const Error = styled.Text`
   font-size: ${RFValue(10)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.warning};
-  /* margin: ${RFValue(10)}px 0px; */
 `;

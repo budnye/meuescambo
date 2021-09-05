@@ -30,6 +30,7 @@ export const ButtonsBox = styled.View`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.logo};
   font-size: ${RFValue(20)}px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const Icon = styled(FontAwesome)`

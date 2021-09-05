@@ -15,6 +15,7 @@ export const Greeting = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFValue(20)}px;
   margin-bottom: ${RFValue(10)}px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const InfoText = styled.Text`
@@ -22,4 +23,5 @@ export const InfoText = styled.Text`
   font-size: ${RFValue(14)}px;
   text-align: center;
   margin-bottom: ${RFValue(10)}px;
+  color: ${({ theme }) => theme.colors.black};
 `;

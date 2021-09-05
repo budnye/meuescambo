@@ -13,6 +13,7 @@ export const Title = styled.Text`
   margin-bottom: ${RFValue(16)}px;
   margin-top: ${RFValue(32)}px;
   text-align: center;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const InfoText = styled.Text`
@@ -20,4 +21,5 @@ export const InfoText = styled.Text`
   font-size: ${RFValue(12)}px;
   text-align: center;
   margin-bottom: ${RFValue(16)}px;
+  color: ${({ theme }) => theme.colors.black};
 `;

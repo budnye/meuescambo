@@ -10,4 +10,5 @@ export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   text-align: center;
   margin-bottom: 32px;
+  color: ${({ theme }) => theme.colors.black};
 `;
