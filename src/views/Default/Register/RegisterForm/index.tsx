@@ -81,25 +81,22 @@ export function RegisterForm({ navigation }: any){
 
   return(
     <Container>
-      <InputBox>
-        <Label>Nome</Label>
         <InputForm
           placeholder="Nome"
           control={control}
           name="name"
+          label="Nome"
           maxLength={200}
           autoCorrect={false}
           autoCompleteType="name"
           autoCapitalize="words"
           error={errors.name && errors.name.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>E-mail</Label>
         <InputForm
           placeholder="usuario@email.com"
           control={control}
           name="email"
+          label="E-mail"
           maxLength={50}
           autoCorrect={false}
           autoCompleteType="email"
@@ -107,34 +104,29 @@ export function RegisterForm({ navigation }: any){
           keyboardType="email-address"
           error={errors.email && errors.email.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>Senha</Label>
         <InputForm
           placeholder="********"
           secureTextEntry={true}
           control={control}
           maxLength={20}
           name="password"
+          label="Senha"
           autoCorrect={false}
           autoCompleteType="password"
           error={errors.password && errors.password.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>Confirmar Senha</Label>
         <InputForm
           placeholder="********"
           secureTextEntry={true}
           control={control}
           maxLength={16}
           name="confirmPassword"
+          label="Confirmar Senha"
           autoCorrect={false}
           autoCompleteType="password"
           onSubmitEditing={() => handleSubmit(handleRegister)}
           error={errors.confirmPassword && errors.confirmPassword.message}
         />
-      </InputBox>
       <Footer>
         <Button
           title={!loading ? 'Registrar' : 'Salvando...'}
