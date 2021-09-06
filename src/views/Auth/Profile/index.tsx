@@ -16,7 +16,7 @@ export function Profile(){
   return(  
     <Scroll>
     <Container>
-      <ProfileHeader user={data.getUser}/>
+      <ProfileHeader />
       <ProfileForm />
     </Container>
     </Scroll>

@@ -18,8 +18,18 @@ export const LOGIN = gql`
 `;
 
 export const REGISTER = gql`
-  mutation Register($name: String!, $email: String!, $password: String!) {
+  mutation Register($name: String!, $email: String!, $password: String) {
     createUser(data: {name: $name , email: $email, password: $password}) {
+      id
+      name
+      email
+  }
+}
+`;
+
+export const UPDATE_PROFILE = gql`
+  mutation UpdateProfile($name: String!, $email: String!) {
+    updateUser(data: {name: $name , email: $email}) {
       id
       name
       email
