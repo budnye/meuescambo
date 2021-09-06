@@ -30,7 +30,7 @@ const schema = Yup.object().shape({
 });
 
 export function LoginForm() {
-  const [login, { data, loading, error }] = useMutation(LOGIN);
+  const [login, { loading, error }] = useMutation(LOGIN);
 
   const {
     control,
@@ -65,12 +65,11 @@ export function LoginForm() {
   return (
     <Form>
       <Title>Entrar com seu e-mail</Title>
-      <InputBox>
-        <Label>E-mail</Label>
         <InputForm
           placeholder="usuario@email.com"
           control={control}
           name="email"
+          label="E-mail"
           maxLength={50}
           autoCorrect={false}
           autoCompleteType="email"
@@ -78,20 +77,19 @@ export function LoginForm() {
           keyboardType="email-address"
           error={errors.email && errors.email.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>Senha</Label>
         <InputForm
           placeholder="********"
           secureTextEntry={true}
           control={control}
           maxLength={20}
           name="password"
+          label="Senha"
           autoCorrect={false}
           autoCompleteType="password"
+          returnKeyType="go"
           error={errors.password && errors.password.message}
+          onSubmitEditing={handleSubmit(handleLogin)}
         />
-      </InputBox>
       <ErrorBox>
         {error &&
           error.graphQLErrors.map((err) => (

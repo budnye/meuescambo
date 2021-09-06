@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '../../components/Button';
 import { Hello } from './Hello';
 import { Footer } from './Footer';
 import { Logo } from './Logo';

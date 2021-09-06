@@ -11,12 +11,14 @@ export const Title = styled.Text`
   font-size: ${RFValue(14)}px;
   text-align: center;
   margin-bottom: 32px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const Label = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(12)}px;
   margin-left: ${RFValue(4)}px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const InputBox = styled.View`

@@ -6,10 +6,6 @@ export const Scroll = styled.ScrollView`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-export const Title = styled.Text`
-
-`;
-
 export const Container = styled.View`
   flex: 1;
   padding-top: ${RFPercentage(10)}px;

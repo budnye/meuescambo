@@ -9,7 +9,6 @@ import { Trade } from '../Trade';
 import { Transactions } from '../Transactions';
 import { Profile } from '../Profile';
 
-
 const Tab = createMaterialBottomTabNavigator();
 
 export function NavigationBar() {
@@ -23,11 +22,12 @@ export function NavigationBar() {
   ]);
 
   return (
+    <>
     <Tab.Navigator
-      initialRouteName="home"
-      activeColor={theme.colors.primary}
-      barStyle={{ backgroundColor: theme.colors.light }}
-      shifting={false}
+    initialRouteName="home"
+    activeColor={theme.colors.primary}
+    barStyle={{ backgroundColor: theme.colors.light }}
+    shifting={false}
     >
       <Tab.Screen
         name="home"
@@ -70,5 +70,6 @@ export function NavigationBar() {
         }}
       />
     </Tab.Navigator>
+    </>
   );
 }

@@ -22,8 +22,6 @@ export const Container = styled(TouchableOpacity).attrs({
   box-shadow: 3px 3px 3px #eee;
 `;
 
-export const Title = styled.Text``;
-
 export const Icon = styled(FontAwesome)<ButtonProps>`
   font-size: ${({ type }) => (type == 'small' ? RFValue(16) : RFValue(18))}px;
   margin-right: 8px;

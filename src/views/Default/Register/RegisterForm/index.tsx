@@ -17,19 +17,20 @@ interface FormData {
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().min(2,'Nome muito curto').max(201,'Nome muito longo').required('Nome é obrigatório'),
-  email: Yup.string().email('Email inválido').max(51,'Email muito longo').required('Email é obrigatório'),
-  password: Yup.string().min(6,'Senha muito curta').max(17,'Senha muito longa').required('Senha é obrigatório'),
+  name: Yup.string().min(2,'O nome ter no mínimo 2 caracteres').max(200,'O nome deve ter no máximo 200 caracteres').required('Nome é obrigatório'),
+  email: Yup.string().email('Email inválido').max(50,'Email muito longo').required('Email é obrigatório'),
+  password: Yup.string().min(6,'A senha deve ter no mínimo 8 caracteres').max(12,'A senha deve ter no máximo 12 caracteres').required('Senha é obrigatório'),
   confirmPassword: Yup.string().required('Confirmar Senha é obrigatório'),
 });
 export function RegisterForm({ navigation }: any){
-  const [register, { data, loading, error }] = useMutation(REGISTER);
+  const [registerUser, { loading }] = useMutation(REGISTER);
   
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
+    setFocus,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -58,7 +59,7 @@ export function RegisterForm({ navigation }: any){
   
       const {
         data : { createUser: user }
-      } = await register({ variables: sendData });
+      } = await registerUser({ variables: sendData });
   
       if (user) {
         Alert.alert('Seja bem-vindo!', 'Usuário criado com sucesso, agora é só fazer o login',
@@ -80,25 +81,22 @@ export function RegisterForm({ navigation }: any){
 
   return(
     <Container>
-      <InputBox>
-        <Label>Nome</Label>
         <InputForm
           placeholder="Nome"
           control={control}
           name="name"
+          label="Nome"
           maxLength={200}
           autoCorrect={false}
           autoCompleteType="name"
           autoCapitalize="words"
           error={errors.name && errors.name.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>E-mail</Label>
         <InputForm
           placeholder="usuario@email.com"
           control={control}
           name="email"
+          label="E-mail"
           maxLength={50}
           autoCorrect={false}
           autoCompleteType="email"
@@ -106,33 +104,29 @@ export function RegisterForm({ navigation }: any){
           keyboardType="email-address"
           error={errors.email && errors.email.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>Senha</Label>
         <InputForm
           placeholder="********"
           secureTextEntry={true}
           control={control}
           maxLength={20}
           name="password"
+          label="Senha"
           autoCorrect={false}
           autoCompleteType="password"
           error={errors.password && errors.password.message}
         />
-      </InputBox>
-      <InputBox>
-        <Label>Confirmar Senha</Label>
         <InputForm
           placeholder="********"
           secureTextEntry={true}
           control={control}
           maxLength={16}
           name="confirmPassword"
+          label="Confirmar Senha"
           autoCorrect={false}
           autoCompleteType="password"
+          onSubmitEditing={() => handleSubmit(handleRegister)}
           error={errors.confirmPassword && errors.confirmPassword.message}
         />
-      </InputBox>
       <Footer>
         <Button
           title={!loading ? 'Registrar' : 'Salvando...'}
