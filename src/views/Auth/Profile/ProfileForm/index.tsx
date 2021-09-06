@@ -7,6 +7,8 @@ import { InputForm } from '../../../../components/InputForm';
 import { Button } from '../../../../components/Button';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER, UPDATE_PROFILE } from '../../../../graphql/requests';
+import { ProfileProps } from '..';
+import { Alert } from 'react-native';
 
 interface FormData {
   name?: string;
@@ -22,15 +24,14 @@ const schema = Yup.object().shape({
   confirmPassword: Yup.string(), 
 });
 
-export function ProfileForm(){
-  const [edit, setEdit] = useState(true)
+export function ProfileForm({ edit, editProfile }: ProfileProps ){
   const [update, { loading, error }] = useMutation(UPDATE_PROFILE);
   const { data: { getUser: user }} = useQuery(GET_USER);
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, dirtyFields },
     setValue,
     clearErrors,
   } = useForm({
@@ -40,7 +41,6 @@ export function ProfileForm(){
   useEffect(() => {
     setValue('name', user.name); 
     setValue('email', user.email); 
-
   }, [])
 
   async function handleSubmitForm(form: FormData) {
@@ -57,10 +57,13 @@ export function ProfileForm(){
       const {
         data :{ updateUser: user }
       } = await update({ variables: data });
-      console.log(user);
-    } catch (error) {
+      if (user) {
+        Alert.alert('Sucesso', 'As informações do perfil foram alteradas');
+      }
+      editProfile(false);
+    } catch (error: any) {
       console.log(error);
-      
+      Alert.alert('Ops!', error.message.toString() || 'Erro ao editar o perfil');
     }
   }
 
@@ -99,6 +102,7 @@ export function ProfileForm(){
         <Button
           title={!loading ? 'Salvar' : 'Salvando...'}
           onPress={handleSubmit(handleSubmitForm)}
+          disabled={!edit}
         />
       </Footer>
     </Container>
