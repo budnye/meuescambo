@@ -18,7 +18,8 @@ export const Container = styled.TouchableOpacity.attrs({
   justify-content: center;
   margin: 6px 0px;
   padding: ${RFValue(12)}px;
-  background: ${({ color, theme, secondary }) =>
+  background: ${({ color, theme, secondary, disabled }) =>
+    disabled ? theme.colors.disabled :
     !color && !secondary
       ? theme.colors.primary
       : !color
