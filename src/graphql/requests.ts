@@ -18,7 +18,7 @@ export const LOGIN = gql`
 `;
 
 export const REGISTER = gql`
-  mutation Register($name: String!, $email: String!, $password: String) {
+  mutation Register($name: String!, $email: String!, $password: String!) {
     createUser(data: {name: $name , email: $email, password: $password}) {
       id
       name
@@ -33,6 +33,23 @@ export const UPDATE_PROFILE = gql`
       id
       name
       email
+  }
+}
+`;
+
+export const GET_FEED = gql`
+  query GetFeed {
+    products {
+      id
+      name
+      description
+      image_url
+      categories {
+        id
+        name
+      }
+      likedByUser
+      dislikedByUser
   }
 }
 `;

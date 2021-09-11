@@ -48,7 +48,6 @@ export const ButtonsHeader = styled.View`
   justify-content: flex-end;
   width: 100%;
   padding: 16px;
-  /* border: 1px solid blue; */
 `;
 
 export const ImageBox = styled.View`
