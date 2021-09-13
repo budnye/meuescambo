@@ -1,21 +1,58 @@
-import { useQuery } from '@apollo/client';
-import React, { useRef } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, PanResponder } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { GET_FEED } from '../../graphql/requests';
+import { DISLIKE_ACTION, GET_FEED, LIKE_ACTION } from '../../graphql/requests';
 import { ButtonsFooter } from '../ButtonsFooter';
 import { MainCard } from '../MainCard';
+import { ScreenLoader } from '../ScreenLoader';
 
 import { Container, Title } from './styles';
 
 export function SwipeDeck(){
   const { data, loading } = useQuery(GET_FEED);
-  const width = Dimensions.get('window').width;
+  const [likeAction, ] = useMutation(LIKE_ACTION);
+  const [dislikeAction, ] = useMutation(DISLIKE_ACTION);
+  const [list, setList] = useState([]);
+  const [firstTime, setFirstTime] = useState(true);
+
+  const width = Dimensions.get('window').width; 
   const cardWidth = width * 0.9;
   // const cardHeight = RFPercentage(70);
   const swipe = useRef(new Animated.ValueXY()).current;
 
   const titlSign = useRef(new Animated.Value(1)).current;
+  
+  useEffect(() => {
+    if(data && firstTime) {
+      setList(data.products);
+      setFirstTime(false);
+    } 
+  }, [data])
+
+  async function handleLike(id: string){
+    try {
+      console.log('handleLike ', id);
+      setList((prevState) => prevState.slice(1));
+       const response = await likeAction({ variables:  { id } });
+       console.log('response ', response);
+       
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleDislike(id: string){
+    try {
+      console.log('handleDislike ', id);
+      setList((prevState) => prevState.slice(1));
+       const response = await dislikeAction({ variables:  { id } });
+       console.log('response ', response);
+       
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -24,20 +61,52 @@ export function SwipeDeck(){
       console.log(x0 > cardWidth / 2 ? 1 : -1)
       titlSign.setValue(x0 > cardWidth / 2 ? 1 : -1);
     },
-    onPanResponderRelease: ( _, gesture ) => {
-      Animated.spring(swipe, {
-        toValue: { x: 0, y: 0 },
-        useNativeDriver: true,
-        friction: 5,
-      }).start();
-    }
-  });
+    onPanResponderRelease: ( _, { dx, dy } ) => {
+      const direction = Math.sign(dx);
+      const isActionActive = Math.abs(dx) > cardWidth / 2;
+      console.log(direction > 0 ? 'like' : 'dislike');
+      
+      if(isActionActive){
+        Animated.timing(swipe, {
+          duration: 400,
+          toValue: { x: direction * (width + 0.5 * width), y: dy },
+          useNativeDriver: true,
+        }).start(() => removeTop(direction))
+      } else {
+        Animated.spring(swipe, {
+          toValue: { x: 0, y: 0 },
+          useNativeDriver: true,
+          friction: 5,
+        }).start();
+      }
+      }
+  }); 
+  
+  const removeTop = useCallback(
+    (direction: number ) => {
+      const { id } = list[0];
+      console.log('removeTop ');
+      if(direction > 0) handleLike(id);
+      if(direction < 0) handleDislike(id);
+      swipe.setValue({ x: 0, y: 0 });
+    },
+    [swipe, list],
+  )
 
+  const handleSwipe = useCallback((direction) => {
+    Animated.timing(swipe.x, {
+      toValue: direction * (width + 0.5 * width),
+      duration: 400,
+      useNativeDriver: true,
+    }).start(() => removeTop(direction));
+  }, [removeTop, swipe.x])
+
+  if (loading) return <ScreenLoader />;
   
   return(
     <Container>
       
-    {!loading && data && data.products
+    {!loading && list && list
       .map((product: any, index: number) => {
         const isFirst = index === 0;
         const dragHandlers = isFirst ? panResponder.panHandlers : {};
@@ -57,12 +126,11 @@ export function SwipeDeck(){
       .reverse()
     }
 
-      <ButtonsFooter 
-          likeAction={() => console.log("LikeAction")}
-          dislikeAction={() => console.log("DislikeAction")}
-          favoriteAction={() => console.log("FavoriteAction")}
-        
-        />
+      {!loading && list.length > 0 && <ButtonsFooter 
+          likeAction={() => handleSwipe(1)}
+          dislikeAction={() => handleSwipe(-1)}
+          favoriteAction={() => console.log("FavoriteAction")}        
+        />}
     </Container>
   );
 };

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// Queries
 export const GET_USER = gql`
   query {
     getUser {
@@ -9,6 +10,25 @@ export const GET_USER = gql`
   }
 `;
 
+export const GET_FEED = gql`
+  query GetFeed {
+    products {
+      id
+      name
+      description
+      image_url
+      categories {
+        id
+        name
+      }
+      likedByUser
+      dislikedByUser
+  }
+}
+`;
+
+
+// Mutations
 export const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
     login(data: { email: $email, password: $password }) {
@@ -37,19 +57,24 @@ export const UPDATE_PROFILE = gql`
 }
 `;
 
-export const GET_FEED = gql`
-  query GetFeed {
-    products {
-      id
-      name
-      description
-      image_url
-      categories {
+export const LIKE_ACTION = gql`
+  mutation LikeAction($id: String!) {
+    likeProduct(data: {id: $id}){
+      product{
         id
         name
       }
-      likedByUser
-      dislikedByUser
+    }
   }
-}
+`;
+
+export const DISLIKE_ACTION = gql`
+  mutation DislikeAction($id: String!) {
+    dislikeProduct(data: {id: $id}){
+      product{
+        id
+        name
+      }
+    }
+  }
 `;
