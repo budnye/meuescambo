@@ -5,12 +5,12 @@ import {
   Container,
   Scroll
 } from './styles';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 export function Register({ navigation } : any){
   return(
     <Scroll>
-      <KeyboardAvoidingView behavior="position">
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : ""}>
       <Container>
       <RegisterHeader />
       <RegisterForm navigation={navigation}/>

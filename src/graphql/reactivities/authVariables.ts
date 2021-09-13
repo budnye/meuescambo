@@ -1,7 +1,7 @@
 import { makeVar, gql } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAuth } from '../../services/asyncstorage';
 
-export const auth = makeVar(false);
+export const auth = makeVar(getAuth);
 
 // This is the query to get the auth reactive variable.
 export const GET_AUTH = gql`

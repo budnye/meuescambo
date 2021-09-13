@@ -6,12 +6,12 @@ import { SocialLogin } from './SocialLogin';
 import { LoginDivider } from './LoginDivider';
 import { LoginForm } from './LoginForm';
 import { LoginFooter } from './LoginFooter';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 export function Login() {
   return (
     <Scroll>
-      <KeyboardAvoidingView behavior="position">
+      <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'position' : 'position'}>
         <Container>
           <SocialLogin />
           <LoginDivider />

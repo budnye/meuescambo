@@ -4,12 +4,14 @@ export default {
 
     secondary: '#c8d8e4',
 
-    success: '#009944',
+    // success: '#009944',
+    success: '#00c851',
 
     // warning: '#f0541e',
 
-    warning: 'red',
-    danger: '#e50f0f',
+    warning: '#FF4444',
+    // danger: '#e50f0f',
+    danger: '#FF4444',
 
     info: '#63c0df',
 

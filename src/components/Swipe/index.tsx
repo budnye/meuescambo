@@ -1,11 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Container, Title } from './styles';
+import { Container, ItemsBox } from './styles';
 import  Swipeable  from 'react-native-gesture-handler/Swipeable';
 import { MainCard } from '../MainCard';
+import { ButtonsFooter } from '../ButtonsFooter';
+import { useQuery } from '@apollo/client';
+import { GET_FEED } from '../../graphql/requests';
 export function Swipe({   }: any){
+  const { data, loading } = useQuery(GET_FEED);
   
   const [index, setindex] = useState(0)
+  const { products } = data || { products: [] };
+  useEffect(() => {
+
+    
+
+  }, [index])
+  function handleLeft() {
+    console.log('left');
+    console.log('index', index);
+    console.log('length ', products.length);
+    setindex(index < products.length - 2 ? index + 1 : 0)
+  }
+  
+  function handleRight() {
+    console.log('right');
+    console.log('index', index);
+    console.log('length ', products.length);
+    setindex(index < products.length - 2 ? index + 1 : 0)
+  }
+
   const items = [
     {
       id: 0,
@@ -48,21 +72,28 @@ export function Swipe({   }: any){
   ];
   return(
     <Container>
-      {items && items.map((item: any, idx: number) => 
+      {data && products.map((item: any, idx: number) => 
       idx === index  &&
       (
+        <ItemsBox key={idx} >
         <Swipeable
-        key={idx}
         friction={2}
         leftThreshold={30}
         rightThreshold={30}
-        renderLeftActions={() => <MainCard title={items[index + 1].name} image={items[index + 1].image_url} />}
-        renderRightActions={() => <MainCard title={items[index + 1].name} image={items[index + 1].image_url} />}
-        onSwipeableLeftOpen={() => setindex(index + 1)}
-        onSwipeableRightOpen={() => setindex(index + 1)}
+        renderLeftActions={() => <MainCard title={products[index + 1].name} image={products[index + 1].image_url} />}
+        renderRightActions={() => <MainCard title={products[index + 1].name} image={products[index + 1].image_url} />}
+        onSwipeableLeftOpen={() => handleLeft()}
+        onSwipeableRightOpen={() => handleRight()}
       >
-        <MainCard title={items[index].name} image={items[index].image_url} />
-      </Swipeable>  
+        <MainCard title={products[index].name} image={products[index].image_url} />
+      </Swipeable>
+        <ButtonsFooter 
+          likeAction={() => console.log("LikeAction")}
+          dislikeAction={() => console.log("DislikeAction")}
+          favoriteAction={() => console.log("FavoriteAction")}
+        
+        />
+      </ItemsBox>  
       ))}
     </Container>
   );
