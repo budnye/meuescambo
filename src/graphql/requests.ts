@@ -10,6 +10,22 @@ export const GET_USER = gql`
   }
 `;
 
+export const GET_USER_PRODUCTS = gql`
+  query {
+    userProducts{
+      id
+      name
+      description
+      categories {
+        id
+        name
+        description
+        image_url
+      }
+    }
+  }
+`;
+
 export const GET_FEED = gql`
   query GetFeed {
     products {
