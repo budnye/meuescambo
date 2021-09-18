@@ -25,7 +25,7 @@ import { Lobster_400Regular } from '@expo-google-fonts/lobster';
 import { Router } from './src/router';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://192.168.5.141:3000/graphql',
 });
 
 const authLink = setContext(async (_, { headers }) => {

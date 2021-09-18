@@ -1,20 +1,21 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, PanResponder } from 'react-native';
+import { Alert, Animated, Dimensions, PanResponder } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { DISLIKE_ACTION, GET_FEED, LIKE_ACTION } from '../../graphql/requests';
+import { DISLIKE_ACTION, GET_FEED, GET_USER_PRODUCTS, LIKE_ACTION } from '../../graphql/requests';
 import { ButtonsFooter } from '../ButtonsFooter';
 import { MainCard } from '../MainCard';
 import { ScreenLoader } from '../ScreenLoader';
 
 import { Container, Title } from './styles';
 
-export function SwipeDeck(){
+export function SwipeDeck({ navigation }){
   const { data, loading } = useQuery(GET_FEED);
   const [likeAction, ] = useMutation(LIKE_ACTION);
   const [dislikeAction, ] = useMutation(DISLIKE_ACTION);
   const [list, setList] = useState([]);
   const [firstTime, setFirstTime] = useState(true);
+
 
   const width = Dimensions.get('window').width; 
   const cardWidth = width * 0.9;
@@ -24,18 +25,17 @@ export function SwipeDeck(){
   const titlSign = useRef(new Animated.Value(1)).current;
   
   useEffect(() => {
-    if(data && firstTime) {
+    if(data) {
       setList(data.products);
       setFirstTime(false);
     } 
   }, [data])
 
+
   async function handleLike(id: string){
     try {
-      console.log('handleLike ', id);
       setList((prevState) => prevState.slice(1));
-       const response = await likeAction({ variables:  { id } });
-       console.log('response ', response);
+      await likeAction({ variables:  { id } });
        
     } catch (error) {
       console.log(error);
@@ -44,10 +44,8 @@ export function SwipeDeck(){
 
   async function handleDislike(id: string){
     try {
-      console.log('handleDislike ', id);
       setList((prevState) => prevState.slice(1));
-       const response = await dislikeAction({ variables:  { id } });
-       console.log('response ', response);
+      await dislikeAction({ variables:  { id } });
        
     } catch (error) {
       console.log(error);
@@ -58,13 +56,11 @@ export function SwipeDeck(){
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: ( _, {dx, dy, y0, x0 } ) => {
       swipe.setValue({ x: dx, y: dy });
-      console.log(x0 > cardWidth / 2 ? 1 : -1)
       titlSign.setValue(x0 > cardWidth / 2 ? 1 : -1);
     },
     onPanResponderRelease: ( _, { dx, dy } ) => {
       const direction = Math.sign(dx);
       const isActionActive = Math.abs(dx) > cardWidth / 2;
-      console.log(direction > 0 ? 'like' : 'dislike');
       
       if(isActionActive){
         Animated.timing(swipe, {
