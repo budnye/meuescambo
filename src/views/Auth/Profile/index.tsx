@@ -7,11 +7,20 @@ import { ProfileHeader } from './ProfileHeader';
 import { ProfileForm } from './ProfileForm';
 import { ScreenLoader } from '../../../components/ScreenLoader';
 import { Container, Scroll } from './styles';
+import { StatusBar } from 'expo-status-bar';
+import theme from '../../../global/styles/theme';
+import { ProfileOptions } from './ProfileOptions';
 
 export interface ProfileProps {
   avatarName?: string;
   editProfile: (edit: boolean) => void;
   edit: boolean;
+  user: User;
+}
+
+interface User {
+  name: string;
+  email: string;
 }
 
 export function Profile(){
@@ -25,9 +34,11 @@ export function Profile(){
 
   return(  
     <Scroll>
+      <StatusBar backgroundColor={theme.colors.primary} style="light"/>
     <Container>
-      <ProfileHeader edit={edit} editProfile={setEdit} avatarName={a}/>
-      <ProfileForm edit={edit} editProfile={setEdit}/>
+      <ProfileHeader edit={edit} editProfile={setEdit} avatarName={a} user={data.getUser}/>
+      {/* <ProfileForm edit={edit} editProfile={setEdit}/> */}
+      <ProfileOptions />
     </Container>
     </Scroll>
   );

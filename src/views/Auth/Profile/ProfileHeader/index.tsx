@@ -9,23 +9,33 @@ import {
   HeaderButton,
   ButtonsHeader,
   ButtonIcon,
+  Title,
+  InfoBox,
+  UserInfo,
+  HeaderBox
 } from './styles';
 
 
 
-export function ProfileHeader({ editProfile, edit }: ProfileProps) {
+export function ProfileHeader({ editProfile, edit, user }: ProfileProps) {
   return(
     <Container>
+      <HeaderBox>
       <TopBox >
       <ButtonsHeader >
-        <HeaderButton onPress={()=> editProfile(!edit)}>
+        {/* <HeaderButton onPress={()=> editProfile(!edit)}>
           <ButtonIcon name={edit ? 'check' : 'edit'}/>
-        </HeaderButton>
+        </HeaderButton> */}
       </ButtonsHeader>
       </TopBox>
       <ImageBox>
         <Avatar source={require(`../../../../assets/avatar/Dog_7.png`)} />
       </ImageBox>
+      </HeaderBox>
+      <InfoBox>
+        <Title>{user.name}</Title>
+        <UserInfo>{user.email}</UserInfo>
+      </InfoBox>
     </Container>
   );
 };
