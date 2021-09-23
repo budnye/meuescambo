@@ -5,21 +5,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   width: 100%;
-  height: ${RFPercentage(36)}px;
+  height: ${RFPercentage(45)}px;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: ${RFValue(20)}px;
-  margin-top: ${RFValue(8)}px;
-  margin-bottom: ${RFValue(8)}px;
+  font-size: ${RFValue(18)}px;
   text-align: center;
   color: ${({ theme }) => theme.colors.black};
 `;
 
-export const LocationInfo = styled.Text`
+export const UserInfo = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(12)}px;
   text-align: center;
@@ -34,6 +32,14 @@ export const TopBox = styled.View`
   align-items: flex-start;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const HeaderBox = styled.View`
+  width: 100%;
+  height: ${RFPercentage(36)}px;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const LocationBox = styled.View`
@@ -56,8 +62,7 @@ export const ImageBox = styled.View`
 `;
 
 export const InfoBox = styled.View`
-  position: absolute;
-  top: ${RFPercentage(36)}px;
+
 `;
 
 export const ButtonIcon = styled(FontAwesome)`
