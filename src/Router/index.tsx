@@ -15,6 +15,7 @@ import { Register } from '../views/Default/Register';
 import { Forgot } from '../views/Default/Forgot';
 import { NavigationBar } from '../views/Auth/NavigationBar';
 import { GET_AUTH } from '../graphql/reactivities/authVariables';
+import { RegisterProducts } from '../views/Auth/Trade/RegisterProducts';
 
 export function Router() {
   const { loading, error, data } = useQuery(GET_AUTH);
@@ -53,11 +54,18 @@ export function Router() {
               />
             </>
           ) : (
-            <Stack.Screen
-              name="Home"
-              component={NavigationBar}
-              options={{ headerShown: false }}
-            />
+            <>
+              <Stack.Screen
+                name="Home"
+                component={NavigationBar}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="RegisterProducts"
+                component={RegisterProducts}
+                options={{ headerShown: false }}
+              />
+            </>
           )}
         </>
       </Stack.Navigator>
