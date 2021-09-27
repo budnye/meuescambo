@@ -9,17 +9,17 @@ export function ProfileOptions({ navigation }: any) {
       <Button
         title={'Dados Pessoais'}
         style={{ marginBottom: 32 }}
-        // onPress={() => navigation.navigate('products')}
+        onPress={() => navigation.navigate('ProfilePersonal')}
       />
       <Button
         title={'Endereço'}
         style={{ marginBottom: 32 }}
-        // onPress={() => navigation.navigate('products')}
+        onPress={() => navigation.navigate('ProfileLocation')}
       />
       <Button
         title={'Senha'}
         style={{ marginBottom: 32 }}
-        // onPress={() => navigation.navigate('products')}
+        onPress={() => navigation.navigate('ProfilePassword')}
       />
     </Container>
   );

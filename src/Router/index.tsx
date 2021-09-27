@@ -13,6 +13,9 @@ import { Main } from '../views/Default/Main';
 import { Login } from '../views/Default/Login';
 import { Register } from '../views/Default/Register';
 import { Forgot } from '../views/Default/Forgot';
+import { ProfileLocation } from '../views/Auth/Profile/ProfileLocation';
+import { ProfilePersonal } from '../views/Auth/Profile/ProfilePersonal';
+import { ProfilePassword } from '../views/Auth/Profile/ProfilePassword';
 import { NavigationBar } from '../views/Auth/NavigationBar';
 import { GET_AUTH } from '../graphql/reactivities/authVariables';
 
@@ -29,7 +32,7 @@ export function Router() {
       {console.log('auth Router ', data.auth)}
       <Stack.Navigator>
         <>
-          {!data.auth ? (
+          {data.auth ? (
             <>
               <Stack.Screen
                 name="Main"
@@ -53,11 +56,29 @@ export function Router() {
               />
             </>
           ) : (
-            <Stack.Screen
+              <>
+                            <Stack.Screen
               name="Home"
               component={NavigationBar}
               options={{ headerShown: false }}
             />
+              <Stack.Screen
+              name="ProfileLocation"
+              component={ProfileLocation}
+              options={{ headerShown: false }}
+            />
+              <Stack.Screen
+              name="ProfilePersonal"
+              component={ProfilePersonal}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+            name="ProfilePassword"
+            component={ProfilePassword}
+            options={{ headerShown: false }}
+          />
+
+              </>
           )}
         </>
       </Stack.Navigator>
