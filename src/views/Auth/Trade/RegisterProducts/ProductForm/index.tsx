@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Container, InputBox, Label, Footer } from './styles';
 import { Button } from '../../../../../components/Button';
 import { InputForm } from '../../../../../components/InputForm';
 import { Alert } from 'react-native';
-import { REGISTER } from '../../../../../graphql/requests';
+import { GET_CATEGORIES, REGISTER } from '../../../../../graphql/requests';
 import { CategorySelectButton } from '../../../../../components/CategorySelectButton';
+import { SelectModal } from '../../../../../components/SelectModal';
 
 interface FormData {
   name: string;
@@ -25,7 +26,9 @@ const schema = Yup.object().shape({
 });
 export function ProductForm({ navigation }: any){
   const [registerUser, { loading }] = useMutation(REGISTER);
-  
+  const { data } = useQuery(GET_CATEGORIES);
+
+  const [modalVisible, setModalVisible] = useState(true);
   const {
     control,
     handleSubmit,
@@ -82,6 +85,9 @@ export function ProductForm({ navigation }: any){
 
   return(
     <Container>
+      {data && true && (
+        <SelectModal visible={modalVisible} options={data.categories} title="Categorias"/>
+      )}
         <InputForm
           placeholder="Nome"
           control={control}
@@ -104,10 +110,12 @@ export function ProductForm({ navigation }: any){
           autoCapitalize="sentences"
           error={errors.description && errors.description.message}
         />
+        {data && true && (
           <CategorySelectButton 
-            title="Selecione uma Categoria"
-            onPress={() => console.log('teste')}
+          title="Selecione uma Categoria"
+          onPress={() => console.log('teste')}
           />
+        )}
       <Footer>
         <Button
           title={!loading ? 'Registrar' : 'Salvando...'}

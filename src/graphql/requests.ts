@@ -43,6 +43,15 @@ export const GET_FEED = gql`
 }
 `;
 
+export const GET_CATEGORIES= gql`
+  query GetCategories {
+    categories {
+    id
+    name
+  }
+}
+`;
+
 
 // Mutations
 export const LOGIN = gql`

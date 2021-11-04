@@ -8,6 +8,8 @@ import cache from './src/graphql/cache';
 
 // Theme
 import { ThemeProvider } from 'styled-components/native';
+import { Modal, Portal, Text, Button, Provider } from 'react-native-paper';
+
 import theme from './src/global/styles/theme';
 
 // AsyncStorage
@@ -60,9 +62,13 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <Router />
-      </ApolloProvider>
+      <Provider>
+        <Portal>
+          <ApolloProvider client={client}>
+            <Router />
+          </ApolloProvider>
+        </Portal>
+      </Provider>
     </ThemeProvider>
   );
 }
