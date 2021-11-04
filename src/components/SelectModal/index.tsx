@@ -1,5 +1,6 @@
 import React from 'react';
 import { Scroll } from '../../views/Default/Login/styles';
+import { SelectItem } from './SelectItem';
 import { Container, Title, Box } from './styles';
 
 interface Props {
@@ -13,19 +14,19 @@ interface Option {
   name: string;
 }
 
-export function SelectModal({visible, options} : Props) {
+export function SelectModal({visible, options, title} : Props) {
 
 
   return (
         <Container 
-          visible={true}         
+          visible={false}         
           animationType="slide"
           transparent={true}>
           <Box>
-            <Title>Selecione uma opção</Title>
+            <Title>{title}</Title>
             <Scroll>
               {options && options.length > 0 && options.map(option => (
-                <Title key={option.id}>{option.name}</Title>
+                <SelectItem key={option.id} option={option.name}/>
               ))}
             </Scroll>
           </Box>
