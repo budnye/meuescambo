@@ -43,6 +43,15 @@ export const GET_FEED = gql`
 }
 `;
 
+export const GET_CATEGORIES= gql`
+  query GetCategories {
+    categories {
+    id
+    name
+  }
+}
+`;
+
 
 // Mutations
 export const LOGIN = gql`
@@ -59,6 +68,15 @@ export const REGISTER = gql`
       id
       name
       email
+  }
+}
+`;
+
+export const REGISTER_PRODUCT = gql`
+  mutation RegisterProduct($name: String!, $description: String!, $image_url: String!, $categories: [String!]!) {
+    createProduct(data: {name: $name , description: $description, image_url: $image_url, categories: $categories}) {
+      id
+      name
   }
 }
 `;

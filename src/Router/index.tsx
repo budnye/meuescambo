@@ -18,6 +18,7 @@ import { ProfilePersonal } from '../views/Auth/Profile/ProfilePersonal';
 import { ProfilePassword } from '../views/Auth/Profile/ProfilePassword';
 import { NavigationBar } from '../views/Auth/NavigationBar';
 import { GET_AUTH } from '../graphql/reactivities/authVariables';
+import { RegisterProducts } from '../views/Auth/Trade/RegisterProducts';
 
 export function Router() {
   const { loading, error, data } = useQuery(GET_AUTH);
@@ -56,8 +57,18 @@ export function Router() {
               />
             </>
           ) : (
-              <>
-                            <Stack.Screen
+            <>
+              <Stack.Screen
+                name="Home"
+                component={NavigationBar}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="RegisterProducts"
+                component={RegisterProducts}
+                options={{ headerShown: false }}
+              />
+             <Stack.Screen
               name="Home"
               component={NavigationBar}
               options={{ headerShown: false }}
