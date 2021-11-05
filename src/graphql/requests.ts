@@ -12,10 +12,11 @@ export const GET_USER = gql`
 
 export const GET_USER_PRODUCTS = gql`
   query {
-    userProducts{
+    userProducts {
       id
       name
       description
+      image_url
       categories {
         id
         name
@@ -39,19 +40,18 @@ export const GET_FEED = gql`
       }
       likedByUser
       dislikedByUser
+    }
   }
-}
 `;
 
-export const GET_CATEGORIES= gql`
+export const GET_CATEGORIES = gql`
   query GetCategories {
     categories {
-    id
-    name
+      id
+      name
+    }
   }
-}
 `;
-
 
 // Mutations
 export const LOGIN = gql`
@@ -64,37 +64,49 @@ export const LOGIN = gql`
 
 export const REGISTER = gql`
   mutation Register($name: String!, $email: String!, $password: String!) {
-    createUser(data: {name: $name , email: $email, password: $password}) {
+    createUser(data: { name: $name, email: $email, password: $password }) {
       id
       name
       email
+    }
   }
-}
 `;
 
 export const REGISTER_PRODUCT = gql`
-  mutation RegisterProduct($name: String!, $description: String!, $image_url: String!, $categories: [String!]!) {
-    createProduct(data: {name: $name , description: $description, image_url: $image_url, categories: $categories}) {
+  mutation RegisterProduct(
+    $name: String!
+    $description: String!
+    $image_url: String!
+    $categories: [String!]!
+  ) {
+    createProduct(
+      data: {
+        name: $name
+        description: $description
+        image_url: $image_url
+        categories: $categories
+      }
+    ) {
       id
       name
+    }
   }
-}
 `;
 
 export const UPDATE_PROFILE = gql`
   mutation UpdateProfile($name: String!, $email: String!) {
-    updateUser(data: {name: $name , email: $email}) {
+    updateUser(data: { name: $name, email: $email }) {
       id
       name
       email
+    }
   }
-}
 `;
 
 export const LIKE_ACTION = gql`
   mutation LikeAction($id: String!) {
-    likeProduct(data: {id: $id}){
-      product{
+    likeProduct(data: { id: $id }) {
+      product {
         id
         name
       }
@@ -104,8 +116,8 @@ export const LIKE_ACTION = gql`
 
 export const DISLIKE_ACTION = gql`
   mutation DislikeAction($id: String!) {
-    dislikeProduct(data: {id: $id}){
-      product{
+    dislikeProduct(data: { id: $id }) {
+      product {
         id
         name
       }

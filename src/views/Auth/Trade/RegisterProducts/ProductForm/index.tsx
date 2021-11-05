@@ -76,20 +76,25 @@ export function ProductForm({ navigation }: any) {
         image_url,
       };
 
-      console.log(sendData);
+      console.log('register product data ' + sendData);
       const {
         data: { createProduct: product },
       } = await registerProduct({ variables: sendData });
       console.log(data);
 
       if (product) {
-        Alert.alert('Isso aí!', 'Produto criado com sucesso!', [
-          {
-            text: 'OK',
-            onPress: () => setModalVisible(false),
-            style: 'cancel',
-          },
-        ]);
+        Alert.alert(
+          'Isso aí!',
+          'Produto criado com sucesso, deseja continuar registrando produtos?',
+          [
+            {
+              text: 'Continuar',
+              onPress: () => setModalVisible(false),
+              style: 'cancel',
+            },
+            { text: 'Voltar', onPress: () => navigation.goBack() },
+          ],
+        );
         reset();
         setSelectedCategory(null);
       }
