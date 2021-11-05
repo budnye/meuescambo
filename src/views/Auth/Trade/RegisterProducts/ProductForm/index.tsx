@@ -14,6 +14,7 @@ import {
 } from '../../../../../graphql/requests';
 import { CategorySelectButton } from '../../../../../components/CategorySelectButton';
 import { SelectModal } from '../../../../../components/SelectModal';
+import { ImageSelection } from '../ImageSelection';
 
 interface FormData {
   name: string;
@@ -109,6 +110,8 @@ export function ProductForm({ navigation }: any) {
           onSelect={handleSelectCategory}
         />
       )}
+      <ImageSelection />
+
       <InputForm
         placeholder="Nome"
         control={control}
