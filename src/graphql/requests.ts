@@ -72,6 +72,15 @@ export const REGISTER = gql`
 }
 `;
 
+export const REGISTER_PRODUCT = gql`
+  mutation RegisterProduct($name: String!, $description: String!, $image_url: String!, $categories: [String!]!) {
+    createProduct(data: {name: $name , description: $description, image_url: $image_url, categories: $categories}) {
+      id
+      name
+  }
+}
+`;
+
 export const UPDATE_PROFILE = gql`
   mutation UpdateProfile($name: String!, $email: String!) {
     updateUser(data: {name: $name , email: $email}) {

@@ -7,28 +7,34 @@ import { Container, InputBox, Label, Footer } from './styles';
 import { Button } from '../../../../../components/Button';
 import { InputForm } from '../../../../../components/InputForm';
 import { Alert } from 'react-native';
-import { GET_CATEGORIES, REGISTER } from '../../../../../graphql/requests';
+import { GET_CATEGORIES, REGISTER_PRODUCT, REGISTER, GET_USER_PRODUCTS } from '../../../../../graphql/requests';
 import { CategorySelectButton } from '../../../../../components/CategorySelectButton';
 import { SelectModal } from '../../../../../components/SelectModal';
 
 interface FormData {
   name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  description: string;
+  category: string;
+}
+
+export interface Option {
+  id: string;
+  name: string;
 }
 
 const schema = Yup.object().shape({
   name: Yup.string().min(2,'O nome ter no mínimo 2 caracteres').max(200,'O nome deve ter no máximo 200 caracteres').required('Nome é obrigatório'),
-  email: Yup.string().email('Email inválido').max(50,'Email muito longo').required('Email é obrigatório'),
-  password: Yup.string().min(6,'A senha deve ter no mínimo 8 caracteres').max(12,'A senha deve ter no máximo 12 caracteres').required('Senha é obrigatório'),
-  confirmPassword: Yup.string().required('Confirmar Senha é obrigatório'),
+  description: Yup.string().min(2,'A descrição ter no mínimo 2 caracteres').max(200,'A descrição deve ter no máximo 200 caracteres').required('A descrição é obrigatória'),
 });
-export function ProductForm({ navigation }: any){
-  const [registerUser, { loading }] = useMutation(REGISTER);
-  const { data } = useQuery(GET_CATEGORIES);
 
-  const [modalVisible, setModalVisible] = useState(true);
+export function ProductForm({ navigation }: any){
+  const [registerProduct, { loading }] = useMutation(REGISTER_PRODUCT);
+  const { data: userProducts, refetch  } = useQuery(GET_USER_PRODUCTS);
+  const { data } = useQuery(GET_CATEGORIES);
+  const image_url = 'https://img.olx.com.br/images/35/352105707667580.jpg'
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const {
     control,
     handleSubmit,
@@ -38,42 +44,44 @@ export function ProductForm({ navigation }: any){
   } = useForm({
     resolver: yupResolver(schema),
   });
-  
+  function handleSelectCategory(category: Option) {
+    setSelectedCategory(category);
+    setModalVisible(false);
+    refetch();
+  }
   async function handleRegister(form: FormData) {
     try {
       console.log(form);
       const {
         name,
-        email,
-        password,
-        confirmPassword,
+        description,
       } = form;
   
-  
-      if (password !== confirmPassword) {
-        Alert.alert('Ops!', 'Senhas não conferem');
+      if (!selectedCategory) {
+        Alert.alert('Ops!', 'Você deve selecionar uma categoria');
         return;
       }
-  
       const sendData = {
         name,
-        email,
-        password,
+        description,
+        categories: [selectedCategory.id],
+        image_url
       };
-  
+
+      console.log(sendData);
       const {
-        data : { createUser: user }
-      } = await registerUser({ variables: sendData });
+        data : { createProduct: product }
+      } = await registerProduct({ variables: sendData });
+      console.log(data);
   
-      if (user) {
-        Alert.alert('Seja bem-vindo!', 'Usuário criado com sucesso, agora é só fazer o login',
+      if (product) {
+        Alert.alert('Isso aí!', 'Produto criado com sucesso!',
         [
           {
-            text: "Sair",
-            onPress: () => navigation.goBack(),
+            text: "OK",
+            onPress: () => setModalVisible(false),
             style: "cancel"
           },
-          { text: "Login", onPress: () => navigation.navigate('Login') }
         ]);
         reset();
       }
@@ -86,7 +94,14 @@ export function ProductForm({ navigation }: any){
   return(
     <Container>
       {data && true && (
-        <SelectModal visible={modalVisible} options={data.categories} title="Categorias"/>
+        <SelectModal 
+          visible={modalVisible} 
+          options={data.categories} 
+          title="Categorias"
+          selected={selectedCategory}
+          onSelect={handleSelectCategory}
+            
+          />
       )}
         <InputForm
           placeholder="Nome"
@@ -112,8 +127,8 @@ export function ProductForm({ navigation }: any){
         />
         {data && true && (
           <CategorySelectButton 
-          title="Selecione uma Categoria"
-          onPress={() => console.log('teste')}
+          title={selectedCategory ? selectedCategory.name : 'Selecione uma categoria'}
+          onPress={() => setModalVisible(true)}
           />
         )}
       <Footer>

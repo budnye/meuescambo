@@ -1,10 +1,14 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+interface SelectItemProps {
+  selected: boolean;
+}
+
+export const Container = styled.TouchableWithoutFeedback`
   flex: 1;
   flex-direction: row;
 `;
 
-export const Title = styled.Text`
-
+export const Title = styled.Text<SelectItemProps>`
+  color: ${props => (props.selected ? '#fff' : '#000')};
 `;

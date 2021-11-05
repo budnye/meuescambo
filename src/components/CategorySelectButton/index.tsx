@@ -1,4 +1,5 @@
 import React from 'react';
+import { Option } from '../../views/Auth/Trade/RegisterProducts/ProductForm';
 
 import {
   Container,
@@ -7,7 +8,7 @@ import {
 } from './styles';
 
 interface Props {
-  title: string;
+  title: string | undefined;
   onPress: () => void;
 }
 
