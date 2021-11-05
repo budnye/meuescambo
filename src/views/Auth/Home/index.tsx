@@ -19,7 +19,7 @@ export function Home({navigation}) {
       <StatusBar style="dark" />
       <Header />
       
-      {!loading && data.userProducts && data.userProducts.length >= 1 ? (
+      {!loading && false ? (
         <SwipeDeck navigation={navigation}/>
 
       ) :

@@ -23,12 +23,15 @@ interface User {
   email: string;
 }
 
-export function Profile(){
+export function Profile({ navigation}){
   const { data, loading } = useQuery(GET_USER);
   const [edit, setEdit] = useState(false)
   
   const a = `../../../../assets/avatar/Dog_7.png`;
-
+const u = {
+  name: 'John Doe',
+  email: 'teste@teste.com'
+}
   
   if (loading) return <ScreenLoader />;
 
@@ -36,9 +39,9 @@ export function Profile(){
     <Scroll>
       <StatusBar backgroundColor={theme.colors.primary} style="light"/>
     <Container>
-      <ProfileHeader edit={edit} editProfile={setEdit} avatarName={a} user={data.getUser}/>
+      <ProfileHeader edit={edit} editProfile={setEdit} avatarName={a} user={u}/>
       {/* <ProfileForm edit={edit} editProfile={setEdit}/> */}
-      <ProfileOptions />
+      <ProfileOptions navigation={navigation}/>
     </Container>
     </Scroll>
   );
