@@ -1,13 +1,13 @@
 import React from 'react';
-import { ProductForm } from './RegisterProducts/ProductForm';
+import { MyProducts } from './MyProducts';
 
 import { Container, Title } from './styles';
 
-export function Trade(){
-  return(
+export function Trade({ navigation }) {
+  return (
     <Container>
       <Title>Trade</Title>
-      <ProductForm />
+      <MyProducts navigation={navigation} />
     </Container>
   );
-};
+}

@@ -30,10 +30,10 @@ export function Router() {
 
   return (
     <NavigationContainer>
-      {console.log('auth Router ', data.auth)}
+      {console.log('auth Router ', typeof data.auth)}
       <Stack.Navigator>
         <>
-          {data.auth ? (
+          {!data.auth ? (
             <>
               <Stack.Screen
                 name="Main"
@@ -68,28 +68,22 @@ export function Router() {
                 component={RegisterProducts}
                 options={{ headerShown: false }}
               />
-             <Stack.Screen
-              name="Home"
-              component={NavigationBar}
-              options={{ headerShown: false }}
-            />
               <Stack.Screen
-              name="ProfileLocation"
-              component={ProfileLocation}
-              options={{ headerShown: false }}
-            />
+                name="ProfileLocation"
+                component={ProfileLocation}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
-              name="ProfilePersonal"
-              component={ProfilePersonal}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-            name="ProfilePassword"
-            component={ProfilePassword}
-            options={{ headerShown: false }}
-          />
-
-              </>
+                name="ProfilePersonal"
+                component={ProfilePersonal}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProfilePassword"
+                component={ProfilePassword}
+                options={{ headerShown: false }}
+              />
+            </>
           )}
         </>
       </Stack.Navigator>

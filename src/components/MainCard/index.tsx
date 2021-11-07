@@ -17,19 +17,25 @@ interface CardProps {
   // id?: string;
   title: string;
   image: string;
+  description: string;
   isFirst: boolean;
-  swipe: any
+  swipe: any;
   titlSign: any;
 }
 
-
-
-export function MainCard({ title, image, isFirst, swipe, titlSign, ...rest }: CardProps) {
-  
+export function MainCard({
+  title,
+  image,
+  isFirst,
+  swipe,
+  titlSign,
+  description,
+  ...rest
+}: CardProps) {
   const range = 100;
 
   const likeOpacity = swipe.x.interpolate({
-    inputRange: [ 25, range],
+    inputRange: [25, range],
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });
@@ -40,33 +46,23 @@ export function MainCard({ title, image, isFirst, swipe, titlSign, ...rest }: Ca
     extrapolate: 'clamp',
   });
 
-  useEffect(() => {
-    console.log(likeOpacity)
-  }, [likeOpacity])
-    
-
-  const renderChoice = useCallback(
-    () => {
-      return (
-        <>
-          <ChoiceCard type="like" opacity={likeOpacity}/>
-          <ChoiceCard type="dislike" opacity={dislikeOpacity}/>
-        </>
-      )
-    },
-    [],
-  )
+  const renderChoice = useCallback(() => {
+    return (
+      <>
+        <ChoiceCard type="like" opacity={likeOpacity} />
+        <ChoiceCard type="dislike" opacity={dislikeOpacity} />
+      </>
+    );
+  }, []);
 
   const rotate = Animated.multiply(swipe.x, titlSign).interpolate({
     inputRange: [-range, 0, range],
     outputRange: ['8deg', '0deg', '-8deg'],
   });
 
-
-
   const animatedCardStyle = {
     transform: [...swipe.getTranslateTransform(), { rotate }],
-  }
+  };
   return (
     <Container {...rest} style={[isFirst && animatedCardStyle]}>
       <ImgBox>
@@ -75,7 +71,7 @@ export function MainCard({ title, image, isFirst, swipe, titlSign, ...rest }: Ca
           <ImageTitle>{title}</ImageTitle>
           <LocationBox>
             <LocationIcon name="location-arrow" />
-            <ImageInfo>Criciúma, 10km de distância</ImageInfo>
+            <ImageInfo>{description}</ImageInfo>
           </LocationBox>
         </InfoBox>
       </ImgBox>
