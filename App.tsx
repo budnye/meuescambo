@@ -24,7 +24,7 @@ import {
   OpenSans_700Bold,
 } from '@expo-google-fonts/open-sans';
 import { Lobster_400Regular } from '@expo-google-fonts/lobster';
-import { Router } from './src/router';
+import { Router } from './src/Router';
 
 const httpLink = createHttpLink({
   uri: 'http://192.168.5.141:3000/graphql',
