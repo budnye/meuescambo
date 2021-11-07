@@ -116,6 +116,7 @@ export function SwipeDeck({ navigation }) {
                 key={index}
                 title={product.name}
                 image={product.image_url}
+                description={product.description}
                 isFirst={isFirst}
                 swipe={swipe}
                 titlSign={titlSign}
