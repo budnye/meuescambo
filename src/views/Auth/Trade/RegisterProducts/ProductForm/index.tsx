@@ -76,7 +76,6 @@ export function ProductForm({ navigation }: any) {
         image_url,
       };
 
-      console.log('register product data ' + sendData);
       const {
         data: { createProduct: product },
       } = await registerProduct({ variables: sendData });

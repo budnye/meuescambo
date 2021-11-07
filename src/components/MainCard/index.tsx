@@ -17,6 +17,7 @@ interface CardProps {
   // id?: string;
   title: string;
   image: string;
+  description: string;
   isFirst: boolean;
   swipe: any;
   titlSign: any;
@@ -28,6 +29,7 @@ export function MainCard({
   isFirst,
   swipe,
   titlSign,
+  description,
   ...rest
 }: CardProps) {
   const range = 100;
@@ -69,7 +71,7 @@ export function MainCard({
           <ImageTitle>{title}</ImageTitle>
           <LocationBox>
             <LocationIcon name="location-arrow" />
-            <ImageInfo>Criciúma, 10km de distância</ImageInfo>
+            <ImageInfo>{description}</ImageInfo>
           </LocationBox>
         </InfoBox>
       </ImgBox>
