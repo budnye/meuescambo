@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Container, InputBox, Label, Footer } from './styles';
 import { Button } from '../../../../components/Button';
 import { InputForm } from '../../../../components/InputForm';
 import { Alert } from 'react-native';
-import { REGISTER } from '../../../../graphql/requests';
+import { GET_USER, UPDATE_PROFILE } from '../../../../graphql/requests';
 
 interface FormData {
   name: string;
@@ -26,7 +26,11 @@ const schema = Yup.object().shape({
 });
 
 export function ProfilePersonal({ navigation }: any) {
-  const [registerUser, { loading }] = useMutation(REGISTER);
+  const [updateUser, { loading }] = useMutation(UPDATE_PROFILE, {
+    refetchQueries: [GET_USER],
+  });
+  const { data, loading: loadingUser, error } = useQuery(GET_USER);
+  const user = data?.getUser;
 
   const {
     control,
@@ -34,13 +38,21 @@ export function ProfilePersonal({ navigation }: any) {
     formState: { errors },
     reset,
     setFocus,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
+  useEffect(() => {
+    if (user) {
+      setValue('name', user.name);
+      setValue('email', user.email);
+    }
+  }, [user]);
 
   async function handleRegister(form: FormData) {
     try {
       const { name, email } = form;
+      console.log(form);
 
       const sendData = {
         name,
@@ -48,22 +60,11 @@ export function ProfilePersonal({ navigation }: any) {
       };
 
       const {
-        data: { createUser: user },
-      } = await registerUser({ variables: sendData });
+        data: { updateUser: user },
+      } = await updateUser({ variables: sendData });
 
       if (user) {
-        Alert.alert(
-          'Seja bem-vindo!',
-          'Usuário criado com sucesso, agora é só fazer o login',
-          [
-            {
-              text: 'Sair',
-              onPress: () => navigation.goBack(),
-              style: 'cancel',
-            },
-            { text: 'Login', onPress: () => navigation.navigate('Login') },
-          ],
-        );
+        Alert.alert('Isso aí!', 'Dados alterados com sucesso.');
         reset();
       }
     } catch (error: any) {
