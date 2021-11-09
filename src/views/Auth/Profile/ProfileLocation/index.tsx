@@ -30,14 +30,28 @@ export function ProfileLocation({ navigation }: any) {
     handleSubmit,
     formState: { errors },
     reset,
-    setFocus,
+    getValues,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const setLocation = (info: string) => {
+    console.log(info);
+
+    getAddress({ cep: info })
+      .then((data) => {
+        console.log(data);
+        setValue('street', data.logradouro);
+      })
+      .catch((err) => {
+        Alert.alert(err.response.data);
+      });
+  };
+
   async function handleRegister(form: FormData) {
     try {
-      console.log(form);
+      console.log(getValues());
       const { name, cep, password, confirmPassword } = form;
 
       if (password !== confirmPassword) {
@@ -89,6 +103,15 @@ export function ProfileLocation({ navigation }: any) {
         label="CEP"
         maxLength={9}
         autoCorrect={false}
+        type={'custom'}
+        options={{
+          mask: '99999-999',
+        }}
+        onChange={(e) => {
+          if (e.nativeEvent.text.length === 9) {
+            setLocation(e.nativeEvent.text);
+          }
+        }}
         error={errors.cep && errors.cep.message}
       />
       <InputForm

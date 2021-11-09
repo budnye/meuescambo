@@ -9,6 +9,8 @@ interface Props extends TextInputProps {
   name: string;
   error: string;
   label?: string;
+  type?: any;
+  options?: any;
 }
 
 export function MaskedInputForm({
@@ -28,11 +30,7 @@ export function MaskedInputForm({
             <MaskedInput
               onChangeText={onChange}
               value={value}
-              type={'custom'}
-              options={{
-                mask: '99999-999',
-              }}
-              // error={error}
+              error={error}
               {...rest}
             />
           </InputBox>
