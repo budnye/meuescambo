@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -9,6 +9,7 @@ import { InputForm } from '../../../../components/InputForm';
 import { Alert } from 'react-native';
 import { REGISTER } from '../../../../graphql/requests';
 import { getAddress } from '../../../../services/cep';
+import { MaskedInputForm } from '../../../../components/MaskedInputForm';
 
 interface FormData {
   name: string;
@@ -23,7 +24,7 @@ const schema = Yup.object().shape({
 });
 export function ProfileLocation({ navigation }: any) {
   const [registerUser, { loading }] = useMutation(REGISTER);
-
+  const register = useRef(null);
   const {
     control,
     handleSubmit,
@@ -78,16 +79,17 @@ export function ProfileLocation({ navigation }: any) {
       Alert.alert('Ops!', error.message.toString());
     }
   }
+
   return (
     <Container>
-      <InputForm
+      <MaskedInputForm
         placeholder="00000-000"
         control={control}
         name="cep"
         label="CEP"
         maxLength={9}
         autoCorrect={false}
-        error={errors.cwp && errors.cwp.message}
+        error={errors.cep && errors.cep.message}
       />
       <InputForm
         placeholder="R. Seu endereço"
