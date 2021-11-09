@@ -21,6 +21,7 @@ export const Box = styled.View`
   flex-direction: column;
   justify-content: center;
   margin-bottom: 16px;
+  flex-grow: 1;
 `;
 
 export const InputBox = styled.View`

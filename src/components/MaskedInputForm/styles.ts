@@ -1,9 +1,7 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
-  width: 100%;
-`;
+export const Container = styled.View``;
 
 export const Error = styled.Text`
   font-size: ${RFValue(10)}px;
@@ -11,7 +9,6 @@ export const Error = styled.Text`
   color: ${({ theme }) => theme.colors.warning};
   /* margin: ${RFValue(10)}px 0px; */
 `;
-
 
 export const Label = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
@@ -23,5 +20,5 @@ export const Label = styled.Text`
 export const InputBox = styled.View`
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  /* width: 100%; */
 `;

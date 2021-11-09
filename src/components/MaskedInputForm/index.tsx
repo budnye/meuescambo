@@ -32,6 +32,7 @@ export function MaskedInputForm({
               value={value}
               error={error}
               {...rest}
+              x
             />
           </InputBox>
         )}

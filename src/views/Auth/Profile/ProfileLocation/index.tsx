@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { Container, InputBox, Label, Footer } from './styles';
+import { Container, InputBox, Label, Footer, Row } from './styles';
 import { Button } from '../../../../components/Button';
 import { InputForm } from '../../../../components/InputForm';
 import { Alert } from 'react-native';
@@ -12,19 +12,21 @@ import { getAddress } from '../../../../services/cep';
 import { MaskedInputForm } from '../../../../components/MaskedInputForm';
 
 interface FormData {
-  name: string;
   cep: string;
-  password: string;
-  confirmPassword: string;
+  street: string;
+  neighborhood: string;
+  complement: string;
+  city: string;
+  state: string;
 }
 const schema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'O nome ter no mínimo 2 caracteres')
-    .max(200, 'O nome deve ter no máximo 200 caracteres'),
+  cep: Yup.string()
+    .required('O CEP é obrigatório')
+    .min(9, 'O CEP ter no mínimo 9 caracteres')
+    .max(9, 'O CEP deve ter no máximo 9 caracteres'),
 });
 export function ProfileLocation({ navigation }: any) {
   const [registerUser, { loading }] = useMutation(REGISTER);
-  const register = useRef(null);
   const {
     control,
     handleSubmit,
@@ -43,6 +45,9 @@ export function ProfileLocation({ navigation }: any) {
       .then((data) => {
         console.log(data);
         setValue('street', data.logradouro);
+        setValue('neighborhood', data.bairro);
+        setValue('city', data.localidade);
+        setValue('state', data.uf);
       })
       .catch((err) => {
         Alert.alert(err.response.data);
@@ -121,10 +126,49 @@ export function ProfileLocation({ navigation }: any) {
         label="Rua"
         maxLength={50}
         autoCorrect={false}
-        autoCompleteType="email"
         autoCapitalize="none"
-        keyboardType="email-address"
-        error={errors.email && errors.email.message}
+        error={errors.street && errors.street.message}
+      />
+      <InputForm
+        placeholder="Apto 000 bl 1"
+        control={control}
+        name="complement"
+        label="Complemento"
+        maxLength={50}
+        autoCorrect={false}
+        autoCapitalize="none"
+        keyboardType="numeric"
+        error={errors.complement && errors.complement.message}
+      />
+      <InputForm
+        placeholder="Bairro"
+        control={control}
+        name="neighborhood"
+        label="Bairro"
+        maxLength={70}
+        autoCorrect={false}
+        autoCapitalize="words"
+        error={errors.neighborhood && errors.neighborhood.message}
+      />
+      <InputForm
+        placeholder="Estado"
+        control={control}
+        name="state"
+        label="Estado"
+        maxLength={70}
+        autoCorrect={false}
+        autoCapitalize="words"
+        error={errors.state && errors.state.message}
+      />
+      <InputForm
+        placeholder="Bairro"
+        control={control}
+        name="city"
+        label="Cidade"
+        maxLength={70}
+        autoCorrect={false}
+        autoCapitalize="words"
+        error={errors.city && errors.city.message}
       />
       {/* <InputForm
           placeholder="********"

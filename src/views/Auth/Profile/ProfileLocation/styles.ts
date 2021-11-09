@@ -9,6 +9,13 @@ export const Container = styled.View`
   width: 85%;
 `;
 
+export const Row = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: ${RFValue(16)}px;
+`;
+
 export const Label = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(12)}px;
