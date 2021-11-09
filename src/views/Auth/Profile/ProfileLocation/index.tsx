@@ -24,6 +24,26 @@ const schema = Yup.object().shape({
     .required('O CEP é obrigatório')
     .min(9, 'O CEP ter no mínimo 9 caracteres')
     .max(9, 'O CEP deve ter no máximo 9 caracteres'),
+  street: Yup.string()
+    .required('A rua é obrigatório')
+    .min(3, 'A rua deve ter no mínimo 3 caracteres')
+    .max(100, 'A rua deve ter no máximo 100 caracteres'),
+  complement: Yup.string().max(
+    30,
+    'O complemento deve ter no máximo 30 caracteres',
+  ),
+  neighborhood: Yup.string()
+    .required('O bairro é obrigatório')
+    .min(3, 'O bairro deve ter no mínimo 3 caracteres')
+    .max(100, 'O bairro deve ter no máximo 100 caracteres'),
+  city: Yup.string()
+    .required('A cidade é obrigatório')
+    .min(3, 'A cidade deve ter no mínimo 3 caracteres')
+    .max(100, 'A cidade deve ter no máximo 100 caracteres'),
+  state: Yup.string()
+    .required('O estado é obrigatório')
+    .min(2, 'O estado deve ter no mínimo 2 caracteres')
+    .max(2, 'O estado deve ter no máximo 2 caracteres'),
 });
 export function ProfileLocation({ navigation }: any) {
   const [registerUser, { loading }] = useMutation(REGISTER);
@@ -56,29 +76,20 @@ export function ProfileLocation({ navigation }: any) {
 
   async function handleRegister(form: FormData) {
     try {
-      console.log(getValues());
-      const { name, cep, password, confirmPassword } = form;
+      // console.log(getValues());
+      // const { cep, street, city, state } = form;
 
-      if (password !== confirmPassword) {
-        Alert.alert('Ops!', 'Senhas não conferem');
-        return;
-      }
-      console.log(`cep ` + cep);
+      // const sendData = {
+      //   name,
+      //   cep,
+      //   password,
+      // };
 
-      const location = await getAddress({ cep });
-      console.log(location);
+      // const {
+      //   data: { createUser: user },
+      // } = await registerUser({ variables: sendData });
 
-      const sendData = {
-        name,
-        cep,
-        password,
-      };
-
-      const {
-        data: { createUser: user },
-      } = await registerUser({ variables: sendData });
-
-      if (user) {
+      if (false) {
         Alert.alert(
           'Seja bem-vindo!',
           'Usuário criado com sucesso, agora é só fazer o login',
@@ -124,7 +135,7 @@ export function ProfileLocation({ navigation }: any) {
         control={control}
         name="street"
         label="Rua"
-        maxLength={50}
+        maxLength={100}
         autoCorrect={false}
         autoCapitalize="none"
         error={errors.street && errors.street.message}
@@ -134,7 +145,7 @@ export function ProfileLocation({ navigation }: any) {
         control={control}
         name="complement"
         label="Complemento"
-        maxLength={50}
+        maxLength={30}
         autoCorrect={false}
         autoCapitalize="none"
         keyboardType="numeric"
@@ -155,7 +166,7 @@ export function ProfileLocation({ navigation }: any) {
         control={control}
         name="state"
         label="Estado"
-        maxLength={70}
+        maxLength={2}
         autoCorrect={false}
         autoCapitalize="words"
         error={errors.state && errors.state.message}
@@ -170,29 +181,6 @@ export function ProfileLocation({ navigation }: any) {
         autoCapitalize="words"
         error={errors.city && errors.city.message}
       />
-      {/* <InputForm
-          placeholder="********"
-          secureTextEntry={true}
-          control={control}
-          maxLength={20}
-          name="password"
-          label="Senha"
-          autoCorrect={false}
-          autoCompleteType="password"
-          error={errors.password && errors.password.message}
-        />
-        <InputForm
-          placeholder="********"
-          secureTextEntry={true}
-          control={control}
-          maxLength={16}
-          name="confirmPassword"
-          label="Confirmar Senha"
-          autoCorrect={false}
-          autoCompleteType="password"
-          onSubmitEditing={() => handleSubmit(handleRegister)}
-          error={errors.confirmPassword && errors.confirmPassword.message}
-        /> */}
       <Footer>
         <Button
           title={!loading ? 'Salvar' : 'Salvando...'}
