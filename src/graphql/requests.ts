@@ -104,6 +104,16 @@ export const UPDATE_PROFILE = gql`
   }
 `;
 
+export const UPDATE_PASSWORD = gql`
+  mutation UpdatePassword($password: String!, $oldPassword: String!) {
+    updatePassword(data: { password: $password, oldPassword: $oldPassword }) {
+      id
+      name
+      email
+    }
+  }
+`;
+
 export const LIKE_ACTION = gql`
   mutation LikeAction($id: String!) {
     likeProduct(data: { id: $id }) {
