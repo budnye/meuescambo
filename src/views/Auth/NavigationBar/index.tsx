@@ -16,60 +16,62 @@ export function NavigationBar() {
   const [routes] = React.useState([
     { key: 'home', title: 'Home', icon: 'home' },
     { key: 'search', title: 'Busca', icon: 'magnify' },
-    { key: 'products', title: 'Escambo', icon: 'refresh' },
+    { key: 'products', title: 'Meu Escambo', icon: 'refresh' },
     { key: 'transactions', title: 'Negociações', icon: 'archive' },
     { key: 'profile', title: 'Perfil', icon: 'account' },
   ]);
 
   return (
     <>
-    <Tab.Navigator
-    initialRouteName="home"
-    activeColor={theme.colors.primary}
-    barStyle={{ backgroundColor: theme.colors.light }}
-    shifting={false}
-    >
-      <Tab.Screen
-        name="home"
-        component={Home}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => <Icon name="home" color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="search"
-        component={Search}
-        options={{
-          tabBarLabel: 'Busca',
-          tabBarIcon: ({ color }) => <Icon name="search" color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="products"
-        component={Trade}
-        options={{
-          tabBarLabel: 'Escambo',
-          tabBarIcon: ({ color }) => <Icon name="refresh" color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="transactions"
-        component={Transactions}
-        options={{
-          tabBarLabel: 'Negociações',
-          tabBarIcon: ({ color }) => <Icon name="suitcase" color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Perfil',
-          tabBarIcon: ({ color }) => <Icon name="user" color={color} />,
-        }}
-      />
-    </Tab.Navigator>
+      <Tab.Navigator
+        initialRouteName="home"
+        activeColor={theme.colors.primary}
+        barStyle={{ backgroundColor: theme.colors.light }}
+        shifting={false}
+      >
+        <Tab.Screen
+          name="home"
+          component={Home}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color }) => <Icon name="home" color={color} />,
+          }}
+        />
+        <Tab.Screen
+          name="search"
+          component={Search}
+          options={{
+            tabBarLabel: 'Busca',
+            tabBarIcon: ({ color }) => <Icon name="search" color={color} />,
+          }}
+        />
+        <Tab.Screen
+          name="products"
+          component={Trade}
+          options={{
+            tabBarLabel: 'MeuEscambo',
+            tabBarIcon: ({ color }) => <Icon name="refresh" color={color} />,
+          }}
+        />
+        <Tab.Screen
+          name="transactions"
+          component={Transactions}
+          options={{
+            tabBarLabel: 'Trocas',
+            tabBarIcon: ({ color }) => (
+              <Icon name="shopping-cart" color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="profile"
+          component={Profile}
+          options={{
+            tabBarLabel: 'Perfil',
+            tabBarIcon: ({ color }) => <Icon name="user" color={color} />,
+          }}
+        />
+      </Tab.Navigator>
     </>
   );
 }
