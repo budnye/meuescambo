@@ -26,28 +26,28 @@ export function ImageSelection() {
   }, []);
   const getImageUrl = (file) => {
     const config = {
-        keyPrefix: 'uploads/',
-        bucket: 'escambo-images',
-        region: 'us-east-1',
-        accessKey: keys.accessKey,
-        secretKey: keys.secretKey,
-        successActionStatus: 201,
-      };
-      console.log(config);
+      keyPrefix: 'uploads/',
+      bucket: 'escambo-images',
+      region: 'us-east-1',
+      accessKey: keys.accessKey,
+      secretKey: keys.secretKey,
+      successActionStatus: 201,
+    };
+    console.log(config);
 
-      RNS3.put(file, config).then((response: any) => {
-        console.log('starting RNS3');
-        if (response.status !== 201) {
-          console.log(response);
-          
-          throw new Error('Failed to upload image to S3');  
-        }
+    RNS3.put(file, config).then((response: any) => {
+      console.log('starting RNS3');
+      if (response.status !== 201) {
+        console.log(response);
 
-        console.log(response.body);
-        console.log('FINISH RNS3');
-        return response.body.location
-      });
-  }
+        throw new Error('Failed to upload image to S3');
+      }
+
+      console.log(response.body);
+      console.log('FINISH RNS3');
+      return response.body.location;
+    });
+  };
   const pickImage = async () => {
     let result: any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -65,8 +65,6 @@ export function ImageSelection() {
         type: 'image/png',
       };
       console.log(file);
-
-      
     }
   };
 

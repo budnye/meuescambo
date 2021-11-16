@@ -3,6 +3,7 @@ import { RNS3 } from 'react-native-aws3';
 import { keys } from '../../../env.json';
 
 export const getImageUrl = async (file: any) => {
+  console.log('>>> Start getImageUrl ', file);
   const config = {
     keyPrefix: 'uploads/',
     bucket: 'escambo-images',
