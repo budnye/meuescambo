@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Button as Btn, Image, View, Platform, Alert } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -6,7 +9,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import { Container, InputBox, Label, Footer } from './styles';
 import { Button } from '../../../../../components/Button';
 import { InputForm } from '../../../../../components/InputForm';
-import { Alert } from 'react-native';
 import {
   GET_CATEGORIES,
   REGISTER_PRODUCT,
@@ -14,7 +16,9 @@ import {
 } from '../../../../../graphql/requests';
 import { CategorySelectButton } from '../../../../../components/CategorySelectButton';
 import { SelectModal } from '../../../../../components/SelectModal';
-import { ImageSelection } from '../ImageSelection';
+import { CardPreview } from '../CardPreview';
+import { getImageUrl, packFile } from '../../../../../services/s3';
+import { getImagePermissions } from '../../../../../services/image';
 
 interface FormData {
   name: string;
@@ -42,11 +46,14 @@ export function ProductForm({ navigation }: any) {
   const [registerProduct, { loading }] = useMutation(REGISTER_PRODUCT, {
     refetchQueries: [GET_USER_PRODUCTS],
   });
+
   const { data } = useQuery(GET_CATEGORIES);
-  const image_url = 'https://img.olx.com.br/images/35/352105707667580.jpg';
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
+
   const {
     control,
     handleSubmit,
@@ -56,25 +63,50 @@ export function ProductForm({ navigation }: any) {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  function handleSelectCategory(category: Option) {
+
+  const handleSelectCategory = (category: Option) => {
     setSelectedCategory(category);
     setModalVisible(false);
-  }
-  async function handleRegister(form: FormData) {
+  };
+
+  const handleRegister = async (form: FormData) => {
     try {
       console.log(form);
       const { name, description } = form;
 
       if (!selectedCategory) {
-        Alert.alert('Ops!', 'Você deve selecionar uma categoria');
+        Alert.alert('Ops!', 'Você deve selecionar uma categoria', [
+          {
+            text: 'Fechar',
+            style: 'cancel',
+          },
+          { text: 'Escolher', onPress: () => pickImage() },
+        ]);
         return;
       }
+
+      if (!image) {
+        Alert.alert('Ops!', 'O produto deve ter uma foto.');
+        return;
+      }
+
+      if (!file) {
+        Alert.alert(
+          'Ops!',
+          'Ocorreu um erro ao enviar a imagem tente reenviar.',
+        );
+        return;
+      }
+
+      const image_url = await getImageUrl(file);
+
       const sendData = {
         name,
         description,
         categories: [selectedCategory.id],
         image_url,
       };
+      console.log('sendData Register products ' + JSON.stringify(sendData));
 
       const {
         data: { createProduct: product },
@@ -101,10 +133,67 @@ export function ProductForm({ navigation }: any) {
       console.log(error);
       Alert.alert('Ops!', error.message.toString());
     }
-  }
+  };
+
+  const setUpload = (uri: string) => {
+    const file = packFile(uri, 'product');
+    setFile(file);
+    setImage(uri);
+  };
+
+  const pickImage = async () => {
+    let result: any = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      quality: 1,
+    });
+
+    console.log('RESULT IMAGE ROLL', result);
+
+    if (!result.cancelled) {
+      setUpload(result.uri);
+    }
+  };
+
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+
+    const result: any = await ImagePicker.launchCameraAsync();
+    console.log('RESULT CAMERA', result);
+
+    if (!result.cancelled) {
+      setUpload(result.uri);
+    }
+  };
+
+  const handlePick = () => {
+    Alert.alert(
+      'Vamos lá',
+      'Você gostaria de pegar uma imagem da câmera ou da biblioteca?',
+      [
+        {
+          text: 'Camera',
+          onPress: () => openCamera(),
+          style: 'cancel',
+        },
+        { text: 'Biblioteca', onPress: () => pickImage() },
+      ],
+    );
+  };
+
+  useEffect(() => {
+    getImagePermissions();
+  }, []);
 
   return (
     <Container>
+      {true && <CardPreview image={image} onPress={handlePick} />}
       {data && true && (
         <SelectModal
           visible={modalVisible}
@@ -114,7 +203,6 @@ export function ProductForm({ navigation }: any) {
           onSelect={handleSelectCategory}
         />
       )}
-      <ImageSelection />
 
       <InputForm
         placeholder="Nome"

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Image, View, Platform, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Container, Title } from './styles';
-
+import { keys } from '../../../../../../env.json';
+import { RNS3 } from 'react-native-aws3';
+import moment from 'moment';
 export function ImageSelection() {
   const [image, setImage] = useState(null);
 
@@ -22,9 +24,32 @@ export function ImageSelection() {
       }
     })();
   }, []);
+  const getImageUrl = (file) => {
+    const config = {
+        keyPrefix: 'uploads/',
+        bucket: 'escambo-images',
+        region: 'us-east-1',
+        accessKey: keys.accessKey,
+        secretKey: keys.secretKey,
+        successActionStatus: 201,
+      };
+      console.log(config);
 
+      RNS3.put(file, config).then((response: any) => {
+        console.log('starting RNS3');
+        if (response.status !== 201) {
+          console.log(response);
+          
+          throw new Error('Failed to upload image to S3');  
+        }
+
+        console.log(response.body);
+        console.log('FINISH RNS3');
+        return response.body.location
+      });
+  }
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let result: any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
       quality: 1,
@@ -34,6 +59,14 @@ export function ImageSelection() {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      const file = {
+        uri: result.uri,
+        name: `profile_${moment().unix()}`,
+        type: 'image/png',
+      };
+      console.log(file);
+
+      
     }
   };
 

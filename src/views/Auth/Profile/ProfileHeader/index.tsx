@@ -12,25 +12,29 @@ import {
   Title,
   InfoBox,
   UserInfo,
-  HeaderBox
+  HeaderBox,
 } from './styles';
 
-
-
 export function ProfileHeader({ editProfile, edit, user }: ProfileProps) {
-  return(
+  return (
     <Container>
       <HeaderBox>
-      <TopBox >
-      <ButtonsHeader >
-        {/* <HeaderButton onPress={()=> editProfile(!edit)}>
+        <TopBox>
+          <ButtonsHeader>
+            {/* <HeaderButton onPress={()=> editProfile(!edit)}>
           <ButtonIcon name={edit ? 'check' : 'edit'}/>
         </HeaderButton> */}
-      </ButtonsHeader>
-      </TopBox>
-      <ImageBox>
-        <Avatar source={require(`../../../../assets/avatar/Dog_7.png`)} />
-      </ImageBox>
+          </ButtonsHeader>
+        </TopBox>
+        <ImageBox onPress={() => editProfile()}>
+          <Avatar
+            source={
+              user.avatar
+                ? { uri: user.avatar }
+                : require(`../../../../assets/avatar/Dog_7.png`)
+            }
+          />
+        </ImageBox>
       </HeaderBox>
       <InfoBox>
         <Title>{user.name}</Title>
@@ -38,4 +42,4 @@ export function ProfileHeader({ editProfile, edit, user }: ProfileProps) {
       </InfoBox>
     </Container>
   );
-};
+}

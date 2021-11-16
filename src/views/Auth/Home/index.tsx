@@ -16,7 +16,6 @@ export function Home({ navigation }) {
 
   return (
     <Container>
-      {console.log(data.userProducts)}
       <StatusBar style="dark" />
       <Header />
 
