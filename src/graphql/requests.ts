@@ -7,6 +7,7 @@ export const GET_USER = gql`
       name
       email
       phone
+      avatar
     }
   }
 `;
@@ -95,11 +96,19 @@ export const REGISTER_PRODUCT = gql`
 `;
 
 export const UPDATE_PROFILE = gql`
-  mutation UpdateProfile($name: String!, $email: String!) {
-    updateUser(data: { name: $name, email: $email }) {
+  mutation UpdateProfile(
+    $name: String
+    $email: String
+    $avatar: String
+    $phone: String
+  ) {
+    updateUser(
+      data: { name: $name, email: $email, avatar: $avatar, phone: $phone }
+    ) {
       id
       name
       email
+      avatar
     }
   }
 `;

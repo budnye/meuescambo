@@ -56,14 +56,12 @@ export const ButtonsHeader = styled.View`
   padding: 16px;
 `;
 
-export const ImageBox = styled.View`
+export const ImageBox = styled.TouchableOpacity`
   position: absolute;
   top: ${RFPercentage(15)}px;
 `;
 
-export const InfoBox = styled.View`
-
-`;
+export const InfoBox = styled.View``;
 
 export const ButtonIcon = styled(FontAwesome)`
   font-size: ${RFValue(18)}px;
