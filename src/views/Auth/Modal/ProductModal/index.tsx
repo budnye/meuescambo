@@ -19,23 +19,25 @@ export function ProductModal({ route, navigation }) {
     variables: { id },
   });
 
-  const [likeAction] = useMutation(LIKE_ACTION, {
-    refetchQueries: [{ query: GET_PRODUCTS }],
-  });
+  const [likeAction] = useMutation(LIKE_ACTION);
   const [dislikeAction] = useMutation(DISLIKE_ACTION);
 
   const handleLike = async () => {
-    navigation.goBack();
     try {
       await likeAction({ variables: { id } });
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleDiskike = () => {
-    navigation.goBack();
-    console.log('like');
+  const handleDiskike = async () => {
+    try {
+      await dislikeAction({ variables: { id } });
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleFavorite = () => {
@@ -51,7 +53,7 @@ export function ProductModal({ route, navigation }) {
       <Space />
       <ButtonsFooter
         likeAction={() => handleLike()}
-        dislikeAction={() => console.log('DislikeAction')}
+        dislikeAction={() => handleDiskike()}
         favoriteAction={() => console.log('FavoriteAction')}
       />
     </Container>
