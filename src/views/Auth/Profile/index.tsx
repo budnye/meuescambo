@@ -47,7 +47,9 @@ export function Profile({ navigation }) {
     let result: any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
-      quality: 1,
+      quality: 0.7,
+      maxWidth: 1024,
+      maxHeight: 1024,
     });
 
     console.log('RESULT IMAGE ROLL', result);
