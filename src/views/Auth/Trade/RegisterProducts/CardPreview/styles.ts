@@ -29,7 +29,6 @@ export const Card = styled.View`
   flex: 1;
   width: 100%;
   border-radius: 15px;
-  border: 1px solid blue;
   align-items: center;
   justify-content: center;
   flex-direction: column;
