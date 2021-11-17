@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScreenLoader } from '../../../components/ScreenLoader';
 import { Searchbar } from '../../../components/SearchBar';
 import { GET_FEED, GET_PRODUCTS } from '../../../graphql/requests';
@@ -7,7 +7,7 @@ import { Gallery } from './Gallery';
 
 import { Container, Title } from './styles';
 
-export function Search({ navigation }) {
+export function Search({ navigation, route }) {
   const [search, setSearch] = useState('');
   const [searchTimeout, setSearchTimeout] = useState(0);
   const [isSearching, setIsSearching] = useState(false);
@@ -28,6 +28,15 @@ export function Search({ navigation }) {
       }, 300),
     );
   };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      refetch();
+      console.log('refetch');
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <Container>

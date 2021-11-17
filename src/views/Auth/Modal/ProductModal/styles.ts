@@ -7,3 +7,6 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text``;
+export const Space = styled.View`
+  height: 32px;
+`;
