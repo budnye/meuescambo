@@ -46,6 +46,23 @@ export const GET_FEED = gql`
   }
 `;
 
+export const GET_PRODUCTS = gql`
+  query GetProducts($search: String!) {
+    searchProducts(search: $search) {
+      id
+      name
+      description
+      image_url
+      categories {
+        id
+        name
+      }
+      likedByUser
+      dislikedByUser
+    }
+  }
+`;
+
 export const GET_CATEGORIES = gql`
   query GetCategories {
     categories {
