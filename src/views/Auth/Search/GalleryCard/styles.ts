@@ -2,7 +2,7 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 const width = Dimensions.get('window').width;
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   width: ${width / 3}px;
   height: ${width / 3}px;
 `;

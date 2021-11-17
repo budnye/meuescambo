@@ -14,7 +14,8 @@ export const Container = styled.View`
   height: ${RFPercentage(70)}px;
   align-self: center;
   top: ${RFPercentage(3)}px;
-  margin-left: 32px;
+  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 export const Title = styled.Text``;

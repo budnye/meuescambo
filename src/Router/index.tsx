@@ -19,6 +19,7 @@ import { ProfilePassword } from '../views/Auth/Profile/ProfilePassword';
 import { NavigationBar } from '../views/Auth/NavigationBar';
 import { GET_AUTH } from '../graphql/reactivities/authVariables';
 import { RegisterProducts } from '../views/Auth/Trade/RegisterProducts';
+import { ProductModal } from '../views/Auth/Modal/ProductModal';
 
 export function Router() {
   const { loading, error, data } = useQuery(GET_AUTH);
@@ -83,6 +84,13 @@ export function Router() {
                 component={ProfilePassword}
                 options={{ headerShown: false }}
               />
+              <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                <Stack.Screen
+                  name="ProductModal"
+                  component={ProductModal}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Group>
             </>
           )}
         </>

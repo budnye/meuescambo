@@ -3,8 +3,10 @@ import { GalleryCard } from '../GalleryCard';
 
 import { Container, Title, Box } from './styles';
 
-export function Gallery({ items, searchTerm }) {
-  const renderItem = ({ item }) => <GalleryCard product={item} />;
+export function Gallery({ items, searchTerm, navigation }) {
+  const renderItem = ({ item }) => (
+    <GalleryCard product={item} navigation={navigation} />
+  );
   if (items.length >= 1)
     return (
       <Container

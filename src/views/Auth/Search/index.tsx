@@ -7,7 +7,7 @@ import { Gallery } from './Gallery';
 
 import { Container, Title } from './styles';
 
-export function Search() {
+export function Search({ navigation }) {
   const [search, setSearch] = useState('');
   const [searchTimeout, setSearchTimeout] = useState(0);
   const [isSearching, setIsSearching] = useState(false);
@@ -19,9 +19,9 @@ export function Search() {
 
   const doSearch = (value: string) => {
     if (searchTimeout) clearTimeout(searchTimeout);
-    setIsSearching(true);
     setSearchTimeout(
       setTimeout(() => {
+        setIsSearching(true);
         setSearch(value);
         refetch();
         setIsSearching(false);
@@ -35,7 +35,11 @@ export function Search() {
       {loading || isSearching ? (
         <ScreenLoader />
       ) : (
-        <Gallery items={data.searchProducts} searchTerm={search} />
+        <Gallery
+          items={data.searchProducts}
+          searchTerm={search}
+          navigation={navigation}
+        />
       )}
     </Container>
   );
