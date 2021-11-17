@@ -12,3 +12,10 @@ export const Container = styled.FlatList.attrs({
 `;
 
 export const Title = styled.Text``;
+
+export const Box = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+`;
