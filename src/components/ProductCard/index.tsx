@@ -1,7 +1,4 @@
 import React, { useCallback, useEffect } from 'react';
-import { Animated, Dimensions } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { ChoiceCard } from '../ChoiceCard';
 import {
   Container,
   Image,
