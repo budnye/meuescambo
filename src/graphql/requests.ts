@@ -163,7 +163,6 @@ export const UPDATE_PROFILE = gql`
       id
       name
       email
-      avatar
     }
   }
 `;
