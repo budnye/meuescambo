@@ -1,4 +1,6 @@
 import React from 'react';
+import { LottieMessage } from '../../../components/LottieMessage';
+import { ScreenLoader } from '../../../components/ScreenLoader';
 import { ChatInput } from './Chat/ChatInput';
 
 import { Container, Title } from './styles';
@@ -102,9 +104,22 @@ export function Transactions({ navigation }) {
       ],
     },
   ];
+  if (false) return <ScreenLoader />;
+
   return (
     <Container>
-      <TransactionsList transactions={transactions} navigation={navigation} />
+      {transactions.length < 0 ? (
+        <TransactionsList transactions={transactions} navigation={navigation} />
+      ) : (
+        <LottieMessage
+          navigation={navigation}
+          title="Nenhuma transação encontrada"
+          message="Você ainda não realizou nenhuma transação, vá até a página inicial e procure algum escambo que você gosta."
+          lottie={require('../../../assets/lottie/notFound.json')}
+          path="home"
+          button="Voltar para a página inicial"
+        />
+      )}
     </Container>
   );
 }
