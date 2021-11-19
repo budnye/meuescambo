@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '../../../../components/Button';
 
@@ -19,6 +19,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from '../../../../graphql/requests';
 import { auth } from '../../../../graphql/reactivities/authVariables';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import theme from '../../../../global/styles/theme';
 interface FormData {
   email: string;
   password: string;
@@ -29,9 +30,9 @@ const schema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatório'),
 });
 
-export function LoginForm() {
+export function LoginForm({ route }) {
   const [login, { loading, error }] = useMutation(LOGIN);
-
+  const [showPass, setShowPass] = useState(false);
   const {
     control,
     handleSubmit,
@@ -43,8 +44,13 @@ export function LoginForm() {
 
   // Debug mode
   useEffect(() => {
-    setValue('email', 'joao@teste.com');
-    setValue('password', 'teste1234');
+    if (route.params) {
+      const { email, password } = route.params;
+      handleLogin({ email, password });
+    } else {
+      setValue('email', 'joao@teste.com');
+      setValue('password', 'teste1234');
+    }
   }, []);
 
   async function handleLogin(form: FormData) {
@@ -86,7 +92,7 @@ export function LoginForm() {
       />
       <InputForm
         placeholder="********"
-        secureTextEntry={true}
+        secureTextEntry={!showPass}
         control={control}
         maxLength={20}
         name="password"
@@ -96,6 +102,10 @@ export function LoginForm() {
         returnKeyType="go"
         error={errors.password && errors.password.message}
         onSubmitEditing={handleSubmit(handleLogin)}
+        icon={!showPass ? 'eye' : 'eye-slash'}
+        endIcon
+        iconAction={() => setShowPass(!showPass)}
+        iconColor={theme.colors.primary}
       />
       <ErrorBox>
         {error &&

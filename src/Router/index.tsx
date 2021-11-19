@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
 
 // Apollo Client
@@ -17,14 +17,23 @@ import { ProfileLocation } from '../views/Auth/Profile/ProfileLocation';
 import { ProfilePersonal } from '../views/Auth/Profile/ProfilePersonal';
 import { ProfilePassword } from '../views/Auth/Profile/ProfilePassword';
 import { NavigationBar } from '../views/Auth/NavigationBar';
-import { GET_AUTH } from '../graphql/reactivities/authVariables';
+import { auth, GET_AUTH } from '../graphql/reactivities/authVariables';
 import { RegisterProducts } from '../views/Auth/Trade/RegisterProducts';
 import { ProductModal } from '../views/Auth/Modal/ProductModal';
 import { EditProductModal } from '../views/Auth/Trade/EditProductModal';
+import { Chat } from '../views/Auth/Transactions/Chat';
+import { getAuth } from '../services/asyncstorage';
 
 export function Router() {
   const { loading, error, data } = useQuery(GET_AUTH);
   const Stack = createStackNavigator();
+
+  useEffect(() => {
+    (async () => {
+      const authState = await getAuth();
+      auth(authState);
+    })();
+  }, []);
 
   if (loading) {
     return <AppLoading />;
@@ -33,6 +42,7 @@ export function Router() {
   return (
     <NavigationContainer>
       {console.log('auth Router ', typeof data.auth)}
+      {console.log(data.auth)}
       <Stack.Navigator>
         <>
           {!data.auth ? (
@@ -83,6 +93,11 @@ export function Router() {
               <Stack.Screen
                 name="ProfilePassword"
                 component={ProfilePassword}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
                 options={{ headerShown: false }}
               />
               <Stack.Group screenOptions={{ presentation: 'modal' }}>

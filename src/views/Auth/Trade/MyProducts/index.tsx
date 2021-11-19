@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
+import { LottieMessage } from '../../../../components/LottieMessage';
 import { MainCard } from '../../../../components/MainCard';
 import { ProductCard } from '../../../../components/ProductCard';
 import { ScreenLoader } from '../../../../components/ScreenLoader';
@@ -20,7 +21,12 @@ export function MyProducts({ navigation }) {
       {data?.userProducts.length > 0 ? (
         <ProductsList products={data.userProducts} navigation={navigation} />
       ) : (
-        <Title>Nenhum produto cadastrado</Title>
+        <LottieMessage
+          title="Ops!"
+          message="Nenhum produto encontrado!"
+          lottie={require('../../../../assets/lottie/notFound.json')}
+          button={false}
+        />
       )}
     </Container>
   );

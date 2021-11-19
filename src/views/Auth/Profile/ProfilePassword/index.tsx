@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { Button } from '../../../../components/Button';
 import { InputForm } from '../../../../components/InputForm';
 import { Alert } from 'react-native';
 import { REGISTER, UPDATE_PASSWORD } from '../../../../graphql/requests';
+import theme from '../../../../global/styles/theme';
 
 interface FormData {
   password: string;
@@ -28,7 +29,9 @@ const schema = Yup.object().shape({
 
 export function ProfilePassword({ navigation }: any) {
   const [updatePassword, { loading }] = useMutation(UPDATE_PASSWORD);
-
+  const [showOldPass, setShowOldPass] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [showPassConfirm, setShowPassConfirm] = useState(false);
   const {
     control,
     handleSubmit,
@@ -77,7 +80,7 @@ export function ProfilePassword({ navigation }: any) {
     <Container>
       <InputForm
         placeholder="********"
-        secureTextEntry={true}
+        secureTextEntry={!showOldPass}
         control={control}
         maxLength={20}
         name="oldPassword"
@@ -85,10 +88,14 @@ export function ProfilePassword({ navigation }: any) {
         autoCorrect={false}
         autoCompleteType="password"
         error={errors.oldPassword && errors.oldPassword.message}
+        icon={!showOldPass ? 'eye' : 'eye-slash'}
+        endIcon
+        iconAction={() => setShowOldPass(!showOldPass)}
+        iconColor={theme.colors.primary}
       />
       <InputForm
         placeholder="********"
-        secureTextEntry={true}
+        secureTextEntry={!showPass}
         control={control}
         maxLength={20}
         name="password"
@@ -96,10 +103,14 @@ export function ProfilePassword({ navigation }: any) {
         autoCorrect={false}
         autoCompleteType="password"
         error={errors.password && errors.password.message}
+        icon={!showPass ? 'eye' : 'eye-slash'}
+        endIcon
+        iconAction={() => setShowPass(!showPass)}
+        iconColor={theme.colors.primary}
       />
       <InputForm
         placeholder="********"
-        secureTextEntry={true}
+        secureTextEntry={!showPassConfirm }
         control={control}
         maxLength={16}
         name="confirmPassword"
@@ -108,6 +119,10 @@ export function ProfilePassword({ navigation }: any) {
         autoCompleteType="password"
         onSubmitEditing={() => handleSubmit(handleRegister)}
         error={errors.confirmPassword && errors.confirmPassword.message}
+        icon={!showPassConfirm ? 'eye' : 'eye-slash'}
+        endIcon
+        iconAction={() => setShowPassConfirm(!showPassConfirm)}
+        iconColor={theme.colors.primary}
       />
       <Footer>
         <Button

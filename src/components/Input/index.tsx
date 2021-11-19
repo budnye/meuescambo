@@ -1,7 +1,15 @@
 import React from 'react';
 import { TextInputProps } from 'react-native';
 
-import { Container, InputBox, Icon, Error, Box, ErrorBox } from './styles';
+import {
+  Container,
+  InputBox,
+  Icon,
+  Error,
+  Box,
+  ErrorBox,
+  IconButton,
+} from './styles';
 interface InputProps extends TextInputProps {
   icon?: string;
   iconColor?: string;
@@ -9,12 +17,28 @@ interface InputProps extends TextInputProps {
   error?: string;
 }
 
-export function Input({ icon, iconColor, error, ...rest }: InputProps) {
+export function Input({
+  icon,
+  endIcon,
+  iconColor,
+  error,
+  iconAction,
+  ...rest
+}: InputProps) {
   return (
     <Box>
       <InputBox>
-        {icon && <Icon name={icon} color={iconColor} />}
+        {icon && !endIcon && (
+          <IconButton onPress={() => iconAction()}>
+            <Icon name={icon} color={iconColor} />
+          </IconButton>
+        )}
         <Container {...rest} />
+        {icon && endIcon && (
+          <IconButton onPress={() => iconAction()}>
+            <Icon name={icon} color={iconColor} />
+          </IconButton>
+        )}
       </InputBox>
       <ErrorBox>{error && <Error>{error}</Error>}</ErrorBox>
     </Box>

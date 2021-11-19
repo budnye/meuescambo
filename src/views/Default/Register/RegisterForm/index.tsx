@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { Button } from '../../../../components/Button';
 import { InputForm } from '../../../../components/InputForm';
 import { Alert } from 'react-native';
 import { REGISTER } from '../../../../graphql/requests';
+import theme from '../../../../global/styles/theme';
 
 interface FormData {
   name: string;
@@ -33,6 +34,8 @@ const schema = Yup.object().shape({
 });
 export function RegisterForm({ navigation }: any) {
   const [registerUser, { loading }] = useMutation(REGISTER);
+  const [showPass, setShowPass] = useState(false);
+  const [showPassConfirm, setShowPassConfirm] = useState(false);
 
   const {
     control,
@@ -48,7 +51,6 @@ export function RegisterForm({ navigation }: any) {
     try {
       console.log(form);
       const { name, email, password, confirmPassword } = form;
-
       if (password !== confirmPassword) {
         Alert.alert('Ops!', 'Senhas não conferem');
         return;
@@ -74,7 +76,10 @@ export function RegisterForm({ navigation }: any) {
               onPress: () => navigation.goBack(),
               style: 'cancel',
             },
-            { text: 'Login', onPress: () => navigation.navigate('Login') },
+            {
+              text: 'Login',
+              onPress: () => navigation.navigate('Login', { email, password }),
+            },
           ],
         );
         reset();
@@ -112,7 +117,7 @@ export function RegisterForm({ navigation }: any) {
       />
       <InputForm
         placeholder="********"
-        secureTextEntry={true}
+        secureTextEntry={!showPass}
         control={control}
         maxLength={20}
         name="password"
@@ -120,10 +125,14 @@ export function RegisterForm({ navigation }: any) {
         autoCorrect={false}
         autoCompleteType="password"
         error={errors.password && errors.password.message}
+        icon={!showPass ? 'eye' : 'eye-slash'}
+        endIcon
+        iconAction={() => setShowPass(!showPass)}
+        iconColor={theme.colors.primary}
       />
       <InputForm
         placeholder="********"
-        secureTextEntry={true}
+        secureTextEntry={!showPassConfirm}
         control={control}
         maxLength={16}
         name="confirmPassword"
@@ -132,6 +141,10 @@ export function RegisterForm({ navigation }: any) {
         autoCompleteType="password"
         onSubmitEditing={() => handleSubmit(handleRegister)}
         error={errors.confirmPassword && errors.confirmPassword.message}
+        icon={!showPassConfirm ? 'eye' : 'eye-slash'}
+        endIcon
+        iconAction={() => setShowPassConfirm(!showPassConfirm)}
+        iconColor={theme.colors.primary}
       />
       <Footer>
         <Button

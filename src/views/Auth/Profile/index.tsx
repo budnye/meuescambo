@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // Apollo Client
-import { useMutation, useQuery } from '@apollo/client';
+import { ApolloConsumer, useMutation, useQuery } from '@apollo/client';
 import { GET_USER, UPDATE_PROFILE } from '../../../graphql/requests';
 // Components
 import { ProfileHeader } from './ProfileHeader';
@@ -159,7 +159,11 @@ export function Profile({ navigation }) {
           />
         )}
         {/* <ProfileForm edit={edit} editProfile={setEdit}/> */}
-        <ProfileOptions navigation={navigation} />
+        <ApolloConsumer>
+          {(client) => (
+            <ProfileOptions navigation={navigation} client={client} />
+          )}
+        </ApolloConsumer>
       </Container>
     </Scroll>
   );

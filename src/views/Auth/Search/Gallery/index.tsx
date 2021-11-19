@@ -1,4 +1,5 @@
 import React from 'react';
+import { LottieMessage } from '../../../../components/LottieMessage';
 import { GalleryCard } from '../GalleryCard';
 
 import { Container, Title, Box } from './styles';
@@ -19,7 +20,13 @@ export function Gallery({ items, searchTerm, navigation }) {
   if (items.length === 0)
     return (
       <Box>
-        <Title>{`Nenhum produto encontrado com o termo ${searchTerm}`}</Title>
+        <LottieMessage
+          title="Ops!"
+          message="Nenhum produto encontrado!"
+          lottie={require('../../../../assets/lottie/notFound.json')}
+          path="Search"
+          navigation={navigation}
+        />
       </Box>
     );
 }

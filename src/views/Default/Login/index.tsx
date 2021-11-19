@@ -8,14 +8,16 @@ import { LoginForm } from './LoginForm';
 import { LoginFooter } from './LoginFooter';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-export function Login() {
+export function Login({ route }) {
   return (
     <Scroll>
-      <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'position' : 'position'}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'android' ? 'position' : 'position'}
+      >
         <Container>
           <SocialLogin />
           <LoginDivider />
-          <LoginForm />
+          <LoginForm route={route} />
         </Container>
       </KeyboardAvoidingView>
       <LoginFooter />

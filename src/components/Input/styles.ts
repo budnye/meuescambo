@@ -8,7 +8,8 @@ interface IconProps {
 }
 
 export const Container = styled(TextInput)`
-  width: 100%;
+  /* width: 100%; */
+  flex-grow: 1;
   padding: 8px;
   color: ${({ theme }) => theme.colors.textDark};
   font-family: ${({ theme }) => theme.fonts.regular};
@@ -18,8 +19,10 @@ export const Container = styled(TextInput)`
 export const Box = styled.View`
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 16px;
+  flex-grow: 1;
 `;
+
+export const IconButton = styled.TouchableOpacity``;
 
 export const InputBox = styled.View`
   flex-direction: row;
