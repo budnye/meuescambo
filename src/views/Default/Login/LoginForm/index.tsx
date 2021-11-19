@@ -48,8 +48,8 @@ export function LoginForm({ route }) {
       const { email, password } = route.params;
       handleLogin({ email, password });
     } else {
-      setValue('email', 'joao@teste.com');
-      setValue('password', 'teste1234');
+      setValue('email', 'vargas@teste.com');
+      setValue('password', '1234mudar');
     }
   }, []);
 

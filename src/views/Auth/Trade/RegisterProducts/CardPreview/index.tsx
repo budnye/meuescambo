@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Title, Card, Image } from './styles';
+import { Container, Title, Card, Image, CameraIcon } from './styles';
 interface CardProps {
   title: string;
   image?: string | null;
@@ -10,7 +10,13 @@ interface CardProps {
 export function CardPreview({ title, image, onPress }: CardProps) {
   return (
     <Container onPress={() => onPress()}>
-      <Card>{image && <Image source={{ uri: image }} />}</Card>
+      <Card>
+        {image ? (
+          <Image source={{ uri: image }} />
+        ) : (
+          <CameraIcon name="camera" />
+        )}
+      </Card>
     </Container>
   );
 }

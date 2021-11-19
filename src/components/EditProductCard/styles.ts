@@ -17,6 +17,13 @@ export const Container = styled.TouchableOpacity`
   margin-bottom: 16px;
 `;
 
+export const CameraIcon = styled(FontAwesome)`
+  font-size: ${RFValue(40)}px;
+  margin-right: 8px;
+  margin-left: 8px;
+  color: ${({ theme, color }) => (color ? color : theme.colors.primary)};
+`;
+
 export const Title = styled.Text``;
 
 export const Image = styled.Image`

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProfileProps } from '..';
 import { Avatar } from '../../../../components/Avatar';
+import { CameraIcon } from '../../../../components/CameraIcon';
 import { ScreenLoader } from '../../../../components/ScreenLoader';
 
 import {
@@ -34,14 +35,11 @@ export function ProfileHeader({
           </ButtonsHeader>
         </TopBox>
         <ImageBox onPress={() => editProfile()}>
-          <Avatar
-            loading={loading}
-            source={
-              user.avatar
-                ? { uri: activeImage }
-                : require(`../../../../assets/avatar/Dog_7.png`)
-            }
-          />
+          {user?.avatar ? (
+            <Avatar loading={loading} source={{ uri: activeImage }} />
+          ) : (
+            <CameraIcon />
+          )}
         </ImageBox>
       </HeaderBox>
       <InfoBox>

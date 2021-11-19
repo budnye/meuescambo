@@ -35,3 +35,10 @@ export const Card = styled.View`
 `;
 
 export const Title = styled.Text``;
+
+export const CameraIcon = styled(FontAwesome)`
+  font-size: ${RFValue(40)}px;
+  margin-right: 8px;
+  margin-left: 8px;
+  color: ${({ theme, color }) => (color ? color : theme.colors.primary)};
+`;

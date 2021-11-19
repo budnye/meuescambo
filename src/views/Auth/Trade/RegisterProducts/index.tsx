@@ -6,7 +6,6 @@ import { Container, Title } from './styles';
 export function RegisterProducts({ navigation }) {
   return (
     <Container>
-      <Title>RegisterProducts</Title>
       <ProductForm navigation={navigation} />
     </Container>
   );
