@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProfileProps } from '..';
 import { Avatar } from '../../../../components/Avatar';
+import { ScreenLoader } from '../../../../components/ScreenLoader';
 
 import {
   Container,
@@ -15,7 +16,13 @@ import {
   HeaderBox,
 } from './styles';
 
-export function ProfileHeader({ editProfile, edit, user }: ProfileProps) {
+export function ProfileHeader({
+  editProfile,
+  edit,
+  user,
+  activeImage,
+  loading,
+}: ProfileProps) {
   return (
     <Container>
       <HeaderBox>
@@ -28,9 +35,10 @@ export function ProfileHeader({ editProfile, edit, user }: ProfileProps) {
         </TopBox>
         <ImageBox onPress={() => editProfile()}>
           <Avatar
+            loading={loading}
             source={
               user.avatar
-                ? { uri: user.avatar }
+                ? { uri: activeImage }
                 : require(`../../../../assets/avatar/Dog_7.png`)
             }
           />

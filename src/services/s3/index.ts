@@ -12,6 +12,7 @@ export const getImageUrl = async (file: any) => {
     successActionStatus: 201,
   };
 
+  console.log('>>> Start getImageUrl', { config, file });
   const response: any = await RNS3.put(file, config);
 
   if (response.status !== 201) {

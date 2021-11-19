@@ -68,7 +68,6 @@ export function EditProductForm({ navigation, product }: any) {
     resolver: yupResolver(schema),
   });
   useEffect(() => {
-    console.log(product);
     setValue('name', name);
     setValue('description', description);
     setImage(image_url);
@@ -81,7 +80,8 @@ export function EditProductForm({ navigation, product }: any) {
 
   const handleRegister = async (form: FormData) => {
     try {
-      console.log(form);
+      console.log('UPLOAD IMAGE', file);
+
       const { name, description } = form;
 
       if (!selectedCategory) {

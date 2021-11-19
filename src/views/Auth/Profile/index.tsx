@@ -25,22 +25,35 @@ export interface ProfileProps {
 interface User {
   name: string;
   email: string;
+  avatar: string;
 }
 
 export function Profile({ navigation }) {
   const { data } = useQuery(GET_USER);
-  const [update, { loading, error }] = useMutation(UPDATE_PROFILE, {
-    refetchQueries: [{ query: GET_USER }],
-  });
+  const [update, { loading, error }] = useMutation(UPDATE_PROFILE);
 
   // const [edit, setEdit] = useState(false);
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setUpload = (uri: string) => {
     const file = packFile(uri, 'profile');
+
     setFile(file);
     setImage(uri);
+    Alert.alert('Atenção', 'Você gostaria de salvar essa foto?', [
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+      {
+        text: 'Sim',
+        onPress: async () => {
+          await uploadImage(file);
+        },
+      },
+    ]);
   };
 
   const pickImage = async () => {
@@ -56,8 +69,6 @@ export function Profile({ navigation }) {
 
     if (!result.cancelled) {
       setUpload(result.uri);
-      const uri = await getImageUrl(file);
-      await uploadImage(uri);
     }
   };
 
@@ -75,8 +86,6 @@ export function Profile({ navigation }) {
 
     if (!result.cancelled) {
       setUpload(result.uri);
-      const uri = await getImageUrl(file);
-      await uploadImage(uri);
     }
   };
 
@@ -95,15 +104,18 @@ export function Profile({ navigation }) {
     );
   };
 
-  const uploadImage = async (uri: string) => {
+  const uploadImage = async (file: any) => {
     try {
-      console.log('>>> Start uploadImage', uri);
+      console.log('UPLOAD IMAGE', file);
+      setIsLoading(true);
       const { name, email } = data.getUser;
+      const avatar = await getImageUrl(file);
+      console.log('AVATAR', avatar);
 
-      let sendData = {
+      const sendData = {
         name,
         email,
-        avatar: uri,
+        avatar,
       };
 
       const {
@@ -112,6 +124,7 @@ export function Profile({ navigation }) {
       if (user) {
         Alert.alert('Sucesso', 'Imagem alterada com sucesso');
       }
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
       Alert.alert(
@@ -125,11 +138,15 @@ export function Profile({ navigation }) {
     getImagePermissions();
   }, []);
 
+  useEffect(() => {
+    if (data?.getUser?.avatar) {
+      setImage(data.getUser.avatar);
+    }
+  }, [data]);
   if (loading) return <ScreenLoader />;
 
   return (
     <Scroll>
-      {console.log({ data, loading, error })}
       <StatusBar backgroundColor={theme.colors.primary} style="light" />
       <Container>
         {!loading && data?.getUser && (
@@ -137,11 +154,12 @@ export function Profile({ navigation }) {
             edit={false}
             editProfile={handlePick}
             user={data.getUser}
+            activeImage={image}
+            loading={isLoading || loading}
           />
         )}
         {/* <ProfileForm edit={edit} editProfile={setEdit}/> */}
         <ProfileOptions navigation={navigation} />
-        {console.log(error)}
       </Container>
     </Scroll>
   );
