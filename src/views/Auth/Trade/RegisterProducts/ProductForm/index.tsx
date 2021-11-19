@@ -146,9 +146,9 @@ export function ProductForm({ navigation }: any) {
     let result: any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
-      quality: 0.7,
-      maxWidth: 1024,
-      maxHeight: 1024,
+      quality: 0.1,
+      maxWidth: 600,
+      maxHeight: 600,
     });
 
     console.log('RESULT IMAGE ROLL', result);

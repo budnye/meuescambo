@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.Modal`
-`;
+export const Container = styled.Modal``;
 export const Box = styled.View`
   margin-top: 35%;
   margin-bottom: 10%;
@@ -10,15 +9,18 @@ export const Box = styled.View`
   justify-content: center;
   max-height: 80%;
   border-radius: 25px;
-  padding: 32px 16px;
+  padding: 16px 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Scroll = styled.ScrollView`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
-`; 
+`;
 
 export const Title = styled.Text`
-  font-size: 20px;
+  font-size: 26px;
+  margin-top: 8px;
+  margin-bottom: 26px;
+  font-family: ${({ theme }) => theme.fonts.bold};
 `;
