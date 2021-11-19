@@ -23,9 +23,8 @@ export function MyProducts({ navigation }) {
       ) : (
         <LottieMessage
           title="Ops!"
-          message="Nenhum produto encontrado!"
+          message="Nenhum produto encontrado, clique no botão para adicionar um novo produto."
           lottie={require('../../../../assets/lottie/notFound.json')}
-          button={false}
         />
       )}
     </Container>

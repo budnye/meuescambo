@@ -30,10 +30,7 @@ export function LottieMessage({
       <InfoText>{message}</InfoText>
       <Footer>
         {button && (
-          <Button
-            title={'Cadastrar'}
-            onPress={() => navigation.navigate(path)}
-          />
+          <Button title={button} onPress={() => navigation.navigate(path)} />
         )}
       </Footer>
     </Container>
