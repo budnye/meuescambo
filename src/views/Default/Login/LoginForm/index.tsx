@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '../../../../components/Button';
 
@@ -36,9 +36,16 @@ export function LoginForm() {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  // Debug mode
+  useEffect(() => {
+    setValue('email', 'joao@teste.com');
+    setValue('password', 'teste1234');
+  }, []);
 
   async function handleLogin(form: FormData) {
     const { email, password } = form;
@@ -65,31 +72,31 @@ export function LoginForm() {
   return (
     <Form>
       <Title>Entrar com seu e-mail</Title>
-        <InputForm
-          placeholder="usuario@email.com"
-          control={control}
-          name="email"
-          label="E-mail"
-          maxLength={50}
-          autoCorrect={false}
-          autoCompleteType="email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          error={errors.email && errors.email.message}
-        />
-        <InputForm
-          placeholder="********"
-          secureTextEntry={true}
-          control={control}
-          maxLength={20}
-          name="password"
-          label="Senha"
-          autoCorrect={false}
-          autoCompleteType="password"
-          returnKeyType="go"
-          error={errors.password && errors.password.message}
-          onSubmitEditing={handleSubmit(handleLogin)}
-        />
+      <InputForm
+        placeholder="usuario@email.com"
+        control={control}
+        name="email"
+        label="E-mail"
+        maxLength={50}
+        autoCorrect={false}
+        autoCompleteType="email"
+        autoCapitalize="none"
+        keyboardType="email-address"
+        error={errors.email && errors.email.message}
+      />
+      <InputForm
+        placeholder="********"
+        secureTextEntry={true}
+        control={control}
+        maxLength={20}
+        name="password"
+        label="Senha"
+        autoCorrect={false}
+        autoCompleteType="password"
+        returnKeyType="go"
+        error={errors.password && errors.password.message}
+        onSubmitEditing={handleSubmit(handleLogin)}
+      />
       <ErrorBox>
         {error &&
           error.graphQLErrors.map((err) => (

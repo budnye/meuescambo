@@ -18,7 +18,7 @@ export function MyProducts({ navigation }) {
     <Container>
       <AddFab navigation={navigation} />
       {data?.userProducts.length > 0 ? (
-        <ProductsList products={data.userProducts} />
+        <ProductsList products={data.userProducts} navigation={navigation} />
       ) : (
         <Title>Nenhum produto cadastrado</Title>
       )}

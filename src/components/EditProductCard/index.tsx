@@ -14,11 +14,11 @@ interface CardProps {
   product: any;
 }
 
-export function ProductCard({ product, action }: CardProps) {
+export function EditProductCard({ product, action, activeImage }: CardProps) {
   return (
     <Container onPress={() => action()}>
       <ImgBox>
-        <Image source={{ uri: product.image_url }} />
+        <Image source={{ uri: activeImage }} />
         <InfoBox colors={['transparent', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.6)']}>
           <ImageTitle>{product.name}</ImageTitle>
           <LocationBox>

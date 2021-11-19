@@ -6,19 +6,21 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@apollo/client';
-import { Container, InputBox, Label, Footer } from './styles';
+import { Container, InputBox, Label, Footer, LoaderBox } from './styles';
 import { Button } from '../../../../../components/Button';
 import { InputForm } from '../../../../../components/InputForm';
 import {
   GET_CATEGORIES,
   REGISTER_PRODUCT,
   GET_USER_PRODUCTS,
+  UPDATE_PRODUCT,
 } from '../../../../../graphql/requests';
 import { CategorySelectButton } from '../../../../../components/CategorySelectButton';
 import { SelectModal } from '../../../../../components/SelectModal';
-import { CardPreview } from '../CardPreview';
 import { getImageUrl, packFile } from '../../../../../services/s3';
 import { getImagePermissions } from '../../../../../services/image';
+import { ScreenLoader } from '../../../../../components/ScreenLoader';
+import { EditProductCard } from '../../../../../components/EditProductCard';
 
 interface FormData {
   name: string;
@@ -42,8 +44,8 @@ const schema = Yup.object().shape({
     .required('A descrição é obrigatória'),
 });
 
-export function ProductForm({ navigation }: any) {
-  const [registerProduct, { loading }] = useMutation(REGISTER_PRODUCT, {
+export function EditProductForm({ navigation, product }: any) {
+  const [updateProduct, { loading }] = useMutation(UPDATE_PRODUCT, {
     refetchQueries: [GET_USER_PRODUCTS],
   });
 
@@ -54,17 +56,24 @@ export function ProductForm({ navigation }: any) {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const { name, description, categories, id, image_url } = product;
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
     setFocus,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  useEffect(() => {
+    console.log(product);
+    setValue('name', name);
+    setValue('description', description);
+    setImage(image_url);
+    setSelectedCategory(categories[0]);
+  }, []);
   const handleSelectCategory = (category: Option) => {
     setSelectedCategory(category);
     setModalVisible(false);
@@ -76,13 +85,7 @@ export function ProductForm({ navigation }: any) {
       const { name, description } = form;
 
       if (!selectedCategory) {
-        Alert.alert('Ops!', 'Você deve selecionar uma categoria', [
-          {
-            text: 'Fechar',
-            style: 'cancel',
-          },
-          { text: 'Escolher', onPress: () => pickImage() },
-        ]);
+        Alert.alert('Ops!', 'Você deve selecionar uma categoria');
         return;
       }
 
@@ -90,45 +93,36 @@ export function ProductForm({ navigation }: any) {
         Alert.alert('Ops!', 'O produto deve ter uma foto.');
         return;
       }
-
-      if (!file) {
-        Alert.alert(
-          'Ops!',
-          'Ocorreu um erro ao enviar a imagem tente reenviar.',
-        );
-        return;
-      }
       setIsLoading(true);
-      const image_url = await getImageUrl(file);
+      const newImage = file ? await getImageUrl(file) : image_url;
 
       const sendData = {
+        id,
         name,
         description,
         categories: [selectedCategory.id],
-        image_url,
+        image_url: newImage,
       };
       console.log('sendData Register products ' + JSON.stringify(sendData));
 
       const {
-        data: { createProduct: product },
-      } = await registerProduct({ variables: sendData });
+        data: { updateProduct: product },
+      } = await updateProduct({ variables: sendData });
       console.log(data);
-      setIsLoading(false);
+
       if (product) {
         Alert.alert(
           'Isso aí!',
-          'Produto criado com sucesso, deseja continuar registrando produtos?',
+          'Produto alterado criado com sucesso, deseja continuar registrando produtos?',
           [
             {
               text: 'Continuar',
-              onPress: () => setModalVisible(false),
               style: 'cancel',
             },
             { text: 'Voltar', onPress: () => navigation.goBack() },
           ],
         );
-        reset();
-        setSelectedCategory(null);
+        setIsLoading(false);
       }
     } catch (error: any) {
       console.log(error);
@@ -194,55 +188,73 @@ export function ProductForm({ navigation }: any) {
     getImagePermissions();
   }, []);
 
-  return (
-    <Container>
-      {true && <CardPreview image={image} onPress={handlePick} />}
-      {data && true && (
-        <SelectModal
-          visible={modalVisible}
-          options={data.categories}
-          title="Categorias"
-          selected={selectedCategory}
-          onSelect={handleSelectCategory}
-        />
-      )}
+  if (loading) return <ScreenLoader />;
 
-      <InputForm
-        placeholder="Nome"
-        control={control}
-        name="name"
-        label="Nome"
-        maxLength={200}
-        autoCorrect={false}
-        autoCompleteType="name"
-        autoCapitalize="words"
-        error={errors.name && errors.name.message}
-      />
-      <InputForm
-        placeholder="Descrição"
-        control={control}
-        name="description"
-        label="Descrição"
-        maxLength={255}
-        multiline={true}
-        autoCorrect={true}
-        autoCapitalize="sentences"
-        error={errors.description && errors.description.message}
-      />
-      {data && true && (
-        <CategorySelectButton
-          title={
-            selectedCategory ? selectedCategory.name : 'Selecione uma categoria'
-          }
-          onPress={() => setModalVisible(true)}
-        />
+  return (
+    <>
+      {product && (
+        <Container>
+          {!isLoading ? (
+            <EditProductCard
+              product={product}
+              activeImage={image}
+              action={handlePick}
+            />
+          ) : (
+            <LoaderBox>
+              <ScreenLoader />
+            </LoaderBox>
+          )}
+          {data && true && (
+            <SelectModal
+              visible={modalVisible}
+              options={data.categories}
+              title="Categorias"
+              selected={selectedCategory}
+              onSelect={handleSelectCategory}
+            />
+          )}
+
+          <InputForm
+            placeholder="Nome"
+            control={control}
+            name="name"
+            label="Nome"
+            maxLength={200}
+            autoCorrect={false}
+            autoCompleteType="name"
+            autoCapitalize="words"
+            error={errors.name && errors.name.message}
+          />
+          <InputForm
+            placeholder="Descrição"
+            control={control}
+            name="description"
+            label="Descrição"
+            maxLength={255}
+            multiline={true}
+            autoCorrect={true}
+            autoCapitalize="sentences"
+            error={errors.description && errors.description.message}
+          />
+          {data && true && (
+            <CategorySelectButton
+              title={
+                selectedCategory
+                  ? selectedCategory.name
+                  : 'Selecione uma categoria'
+              }
+              onPress={() => setModalVisible(true)}
+            />
+          )}
+          <Footer>
+            <Button
+              title={loading || isLoading ? 'Salvando...' : 'Salvar'}
+              onPress={handleSubmit(handleRegister)}
+            />
+          </Footer>
+        </Container>
       )}
-      <Footer>
-        <Button
-          title={loading || isLoading ? 'Registrando...' : 'Registrar'}
-          onPress={handleSubmit(handleRegister)}
-        />
-      </Footer>
-    </Container>
+    </>
   );
 }

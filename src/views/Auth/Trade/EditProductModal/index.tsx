@@ -1,11 +1,16 @@
 import React from 'react';
+import { EditProductCard } from '../../../../components/EditProductCard';
+import { ProductCard } from '../../../../components/ProductCard';
+import { ProductForm } from '../RegisterProducts/ProductForm';
+import { EditProductForm } from './EditProductForm';
 
 import { Container, Title } from './styles';
 
-export function EditProductModal() {
+export function EditProductModal({ route, navigation }) {
+  const { product } = route.params;
   return (
     <Container>
-      <Title>EditProductModal</Title>
+      <EditProductForm product={product} navigation={navigation} />
     </Container>
   );
 }

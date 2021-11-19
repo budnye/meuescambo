@@ -5,24 +5,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
-// const height = Dimensions.get('window').height;
-const cardWidth = width * 0.9;
+const height = RFPercentage(40);
+const cardWidth = height / 1.3;
 
 export const Container = styled.TouchableOpacity`
-  flex-direction: column;
   width: ${cardWidth}px;
-  height: ${RFPercentage(70)}px;
+  height: ${height}px;
   align-self: center;
-  top: ${RFPercentage(3)}px;
   margin-left: 16px;
   margin-right: 16px;
+  margin-bottom: 16px;
 `;
 
 export const Title = styled.Text``;
 
 export const Image = styled.Image`
   width: 100%;
-  height: ${RFPercentage(70)}px;
+  height: ${height}px;
   border-radius: 15px;
 `;
 

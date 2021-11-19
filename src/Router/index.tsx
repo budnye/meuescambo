@@ -20,6 +20,7 @@ import { NavigationBar } from '../views/Auth/NavigationBar';
 import { GET_AUTH } from '../graphql/reactivities/authVariables';
 import { RegisterProducts } from '../views/Auth/Trade/RegisterProducts';
 import { ProductModal } from '../views/Auth/Modal/ProductModal';
+import { EditProductModal } from '../views/Auth/Trade/EditProductModal';
 
 export function Router() {
   const { loading, error, data } = useQuery(GET_AUTH);
@@ -88,6 +89,11 @@ export function Router() {
                 <Stack.Screen
                   name="ProductModal"
                   component={ProductModal}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="EditProductModal"
+                  component={EditProductModal}
                   options={{ headerShown: false }}
                 />
               </Stack.Group>

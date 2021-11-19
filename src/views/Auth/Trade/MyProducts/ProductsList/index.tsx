@@ -3,11 +3,15 @@ import { ProductCard } from '../../../../../components/ProductCard';
 
 import { Container, Title } from './styles';
 
-export function ProductsList({ products }) {
+export function ProductsList({ products, navigation }) {
   return (
     <Container>
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          action={() => navigation.navigate('EditProductModal', { product })}
+        />
       ))}
     </Container>
   );

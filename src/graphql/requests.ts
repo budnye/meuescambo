@@ -127,6 +127,29 @@ export const REGISTER_PRODUCT = gql`
   }
 `;
 
+export const UPDATE_PRODUCT = gql`
+  mutation UpdateProduct(
+    $id: String!
+    $name: String
+    $description: String
+    $image_url: String
+    $categories: [String!]
+  ) {
+    updateProduct(
+      data: {
+        id: $id
+        name: $name
+        description: $description
+        image_url: $image_url
+        categories: $categories
+      }
+    ) {
+      id
+      name
+    }
+  }
+`;
+
 export const UPDATE_PROFILE = gql`
   mutation UpdateProfile(
     $name: String
